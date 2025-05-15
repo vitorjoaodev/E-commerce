@@ -7,7 +7,7 @@ export default function HeroSection() {
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center" 
         style={{ 
-          backgroundImage: 'url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9-PuMPIjq0wzn8XNgA7sxoTrnDCRXiou2OBbmspQc0pFck8nxs1SVSH1ZiegIp9KFy30&usqp=CAU)',
+          backgroundImage: 'url(https://www.pgparks.com/wp-content/uploads/2023/02/CollegeParkAviationMuseum19-21_1200.jpg)',
           filter: 'brightness(0.3) contrast(1.2)'
         }}
       />
