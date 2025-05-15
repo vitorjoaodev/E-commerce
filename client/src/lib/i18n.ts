@@ -14,6 +14,9 @@ type TranslationKey =
   | 'hero.subtitle'
   | 'hero.shopNew'
   | 'hero.shopBestsellers'
+  | 'hero.badge1'
+  | 'hero.badge2'
+  | 'hero.badge3'
   | 'categories.title'
   | 'categories.aviador'
   | 'categories.aviadorDesc'
@@ -98,6 +101,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     'hero.subtitle': 'Descubra nossa coleção exclusiva de roupas e acessórios inspirados na era de ouro da aviação',
     'hero.shopNew': 'VER NOVA COLEÇÃO',
     'hero.shopBestsellers': 'MAIS VENDIDOS',
+    'hero.badge1': 'Peças Exclusivas',
+    'hero.badge2': 'Alta Qualidade',
+    'hero.badge3': 'Estilo Atemporal',
     'categories.title': 'COLEÇÕES EM DESTAQUE',
     'categories.aviador': 'AVIADOR',
     'categories.aviadorDesc': 'Jaquetas, óculos e acessórios inspirados nos pilotos lendários',
@@ -181,6 +187,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     'hero.subtitle': 'Discover our exclusive collection of clothing and accessories inspired by the golden age of aviation',
     'hero.shopNew': 'VIEW NEW COLLECTION',
     'hero.shopBestsellers': 'BESTSELLERS',
+    'hero.badge1': 'Exclusive Pieces',
+    'hero.badge2': 'Premium Quality',
+    'hero.badge3': 'Timeless Style',
     'categories.title': 'FEATURED COLLECTIONS',
     'categories.aviador': 'AVIATOR MEN',
     'categories.aviadorDesc': 'Jackets, goggles and accessories inspired by legendary pilots',
