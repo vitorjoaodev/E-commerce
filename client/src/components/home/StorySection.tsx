@@ -33,7 +33,7 @@ export default function StorySection() {
               
               <div className="relative z-10 p-4">
                 <img 
-                  src="https://images.unsplash.com/photo-1463554050456-f2ed7d3fec09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" 
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Chegada_de_aviadores_da_For%C3%A7a_A%C3%A9rea_Brasileira_01.tif/lossy-page1-250px-Chegada_de_aviadores_da_For%C3%A7a_A%C3%A9rea_Brasileira_01.tif.jpg" 
                   alt="História da Piloto Inteligente" 
                   className="w-full h-[400px] object-cover rounded-md shadow-xl shadow-black/30"
                 />
@@ -46,7 +46,7 @@ export default function StorySection() {
             
             <div className="md:w-1/2">
               <p className="text-gray-300 mb-4 leading-relaxed">
-                <span className="text-[#FFD700] text-2xl font-serif italic mr-1">A</span>
+                <span className="text-[#FFD700] text-2xl font-serif italic mr-1">O</span>
                 <span className="text-[#FFD700] font-semibold">Piloto Inteligente</span> nasceu da paixão pela aviação e sua rica história. 
                 Nossa jornada começou quando dois amigos pilotos decidiram unir o amor pelos céus com design 
                 contemporâneo, criando peças que celebram o espírito aventureiro dos pioneiros da aviação.
@@ -64,7 +64,7 @@ export default function StorySection() {
                   "Vestir uma peça da Piloto Inteligente é levar consigo um pouco do espírito de liberdade 
                   que só quem já cortou as nuvens pode entender."
                 </p>
-                <footer className="text-[#FFD700] mt-2">— Carlos Drummond, Fundador</footer>
+                <footer className="text-[#FFD700] mt-2">— João Vitor, Fundador</footer>
               </blockquote>
               
               <Link to="/nossa-historia">
