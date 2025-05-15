@@ -85,7 +85,8 @@ export default function Header() {
           {isMobile && (
             <button 
               onClick={toggleMobileMenu}
-              className="text-white p-2"
+              className="text-primary p-2 hover:text-accent transition-colors"
+              aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -187,45 +188,50 @@ export default function Header() {
       
       {/* Mobile Menu (conditionally shown) */}
       {isMobile && mobileMenuOpen && (
-        <div className="bg-gray-900 absolute w-full z-50 py-4 shadow-lg">
+        <div className="bg-[#0a0a0c] absolute w-full z-50 py-4 shadow-lg border-b border-[#8B4513]">
           <nav className="flex flex-col space-y-4 px-4">
             <Link 
               href="/categoria/aviador" 
-              className="text-white hover:text-adventure-yellow transition-colors duration-200 py-2 border-b border-gray-800"
+              className="text-foreground hover:text-primary transition-colors duration-200 py-2 border-b border-gray-800 uppercase tracking-wide text-sm flex items-center"
               onClick={() => setMobileMenuOpen(false)}
             >
+              <span className="text-primary mr-2">✦</span>
               {t('nav.aviador')}
             </Link>
             <Link 
               href="/categoria/aviadora" 
-              className="text-white hover:text-adventure-yellow transition-colors duration-200 py-2 border-b border-gray-800"
+              className="text-foreground hover:text-primary transition-colors duration-200 py-2 border-b border-gray-800 uppercase tracking-wide text-sm flex items-center"
               onClick={() => setMobileMenuOpen(false)}
             >
+              <span className="text-primary mr-2">✦</span>
               {t('nav.aviadora')}
             </Link>
             <Link 
               href="/categoria/acessorios" 
-              className="text-white hover:text-adventure-yellow transition-colors duration-200 py-2 border-b border-gray-800"
+              className="text-foreground hover:text-primary transition-colors duration-200 py-2 border-b border-gray-800 uppercase tracking-wide text-sm flex items-center"
               onClick={() => setMobileMenuOpen(false)}
             >
+              <span className="text-primary mr-2">✦</span>
               {t('nav.accessories')}
             </Link>
             <Link 
               href="/blog" 
-              className="text-white hover:text-adventure-yellow transition-colors duration-200 py-2 border-b border-gray-800"
+              className="text-foreground hover:text-primary transition-colors duration-200 py-2 border-b border-gray-800 uppercase tracking-wide text-sm flex items-center"
               onClick={() => setMobileMenuOpen(false)}
             >
+              <span className="text-primary mr-2">✦</span>
               {t('nav.blog')}
             </Link>
             <Link 
               href="/nossa-historia" 
-              className="text-white hover:text-adventure-yellow transition-colors duration-200 py-2 border-b border-gray-800"
+              className="text-foreground hover:text-primary transition-colors duration-200 py-2 border-b border-gray-800 uppercase tracking-wide text-sm flex items-center"
               onClick={() => setMobileMenuOpen(false)}
             >
+              <span className="text-primary mr-2">✦</span>
               {t('nav.history')}
             </Link>
             
-            <div className="flex justify-between items-center py-4">
+            <div className="flex justify-between items-center py-4 mt-2 border-t border-gray-800">
               <LanguageSwitcher />
               <CurrencySwitcher />
             </div>
