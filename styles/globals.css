@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 220 13% 18%;
+  --foreground: 39 30% 84%;
+  
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  
+  --card: 222 13% 22%;
+  --card-foreground: 39 30% 84%;
+  
+  --border: 214 32% 30%;
+  --input: 214 32% 30%;
+  
+  --primary: 210 84% 43%;
+  --primary-foreground: 39 30% 84%;
+  
+  --secondary: 39 67% 50%;
+  --secondary-foreground: 220 13% 18%;
+  
+  --accent: 210 34% 63%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  
+  --ring: 210 84% 43%;
+  
+  --radius: 0.5rem;
+  
+  --dark-gray: 220 13% 18%;
+  --light-beige: 39 30% 84%;
+  --vintage-beige: 39 30% 84%;
+  --adventure-yellow: 39 67% 50%;
+  --aviation-blue: 210 84% 43%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-dark-gray text-light-beige;
+  }
+}
+
+@layer components {
+  .adventure-title {
+    font-family: 'Georgia', serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  
+  .vintage-shadow {
+    box-shadow: 4px 4px 0px 0px rgba(245, 158, 11, 0.5);
+  }
+}
+
+@font-face {
+  font-family: 'AdventureFont';
+  src: url('/fonts/adventure.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
