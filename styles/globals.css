@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --background: 200 14% 14%;
+  --background: 220 14% 10%;
   --foreground: 0 0% 100%;
   
   --adventure-yellow: 45 100% 60%;
@@ -12,11 +12,11 @@
   --aviation-blue: 210 90% 50%;
   --aviation-blue-foreground: 0 0% 100%;
   
-  --dark-gray: 200 14% 14%;
+  --dark-gray: 220 14% 10%;
   --dark-gray-foreground: 0 0% 100%;
   
-  --muted: 210 40% 93%;
-  --muted-foreground: 215 25% 25%;
+  --muted: 220 10% 15%;
+  --muted-foreground: 220 10% 80%;
   
   --accent: 45 100% 60%;
   --accent-foreground: 0 0% 10%;
@@ -24,21 +24,21 @@
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 210 40% 98%;
   
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
+  --border: 220 15% 15%;
+  --input: 220 15% 15%;
   --ring: 45 100% 60%;
   
   --radius: 0.5rem;
 }
 
 .dark {
-  --background: 200 14% 14%;
+  --background: 220 14% 10%;
   --foreground: 0 0% 100%;
   
-  --card: 0 0% 12%;
+  --card: 220 14% 8%;
   --card-foreground: 0 0% 100%;
   
-  --popover: 0 0% 12%;
+  --popover: 220 14% 8%;
   --popover-foreground: 0 0% 100%;
   
   --primary: 45 100% 60%;
@@ -47,8 +47,8 @@
   --secondary: 210 90% 50%;
   --secondary-foreground: 0 0% 100%;
   
-  --muted: 0 0% 20%;
-  --muted-foreground: 0 0% 70%;
+  --muted: 220 10% 15%;
+  --muted-foreground: 220 10% 80%;
   
   --accent: 45 100% 60%; 
   --accent-foreground: 0 0% 10%;
@@ -56,8 +56,8 @@
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 100%;
   
-  --border: 0 0% 25%;
-  --input: 0 0% 25%;
+  --border: 220 15% 15%;
+  --input: 220 15% 15%;
   --ring: 45 100% 60%;
 }
 

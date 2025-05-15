@@ -221,71 +221,60 @@ export class MemStorage implements IStorage {
       name: "Aviador",
       slug: "aviador",
       description: "Jaquetas, óculos e acessórios inspirados nos pilotos lendários",
-      imageUrl: "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=800"
+      imageUrl: "https://redcanoebrands.com/wp-content/uploads/2023/03/M-SST-CESS-CA-NY_lifestyle3.jpg"
     });
     
     const aviadoraCategory = this.createCategory({
       name: "Aviadora",
       slug: "aviadora",
       description: "Elegância e estilo para as mulheres que desafiam os céus",
-      imageUrl: "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=800"
+      imageUrl: "https://redcanoebrands.com/wp-content/uploads/2016/02/L-SST-B17CA-GY-MD_lifestyle2.jpg"
     });
     
     const acessoriosCategory = this.createCategory({
       name: "Acessórios",
       slug: "acessorios",
       description: "Complementos autênticos para completar seu estilo de aviação",
-      imageUrl: "https://images.unsplash.com/photo-1576613109753-27804de2cba8?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=800"
+      imageUrl: "https://redcanoebrands.com/wp-content/uploads/2021/01/January_category-accessories.jpg"
     });
     
     // Add products
     this.createProduct({
-      name: "Capacete de Aviador Vintage",
-      slug: "capacete-aviador-vintage",
-      description: "Capacete de couro vintage inspirado nos primeiros pilotos da aviação, com acabamento detalhado e proteção para os olhos.",
-      price: "499.90",
-      categoryId: 3,
+      name: "Camiseta Masculina Avro Lancaster",
+      slug: "camiseta-masculina-avro-lancaster",
+      description: "O Avro Lancaster é uma das aeronaves mais icônicas utilizadas durante a Segunda Guerra Mundial. Sua forma inconfundível e o rugido dos quatro motores Rolls Royce Merlin só podem ser plenamente apreciados ao ver um dos dois exemplares ainda em condições de voo no mundo. Um está na Inglaterra e o outro tem base no Canadian Warplane Heritage Museum, em Hamilton, Ontário. Temos a sorte de ver regularmente o Lancaster canadense sobrevoando Toronto, o que nos inspirou a celebrar essa incrível peça da História da Aviação com nossa camiseta de algodão de manga curta e gola careca. Ela apresenta as cores da cauda do CGVRA na parte superior do braço esquerdo.\n\n100% algodão\n\nCor: cáqui\n\nGola careca canelada\n\nLavada após a impressão para um visual vintage\n\nPré-encolhida.",
+      price: "69.99",
+      discountPrice: "79.99",
+      categoryId: 1,
+      featured: true,
+      isNew: true,
+      isBestseller: true,
+      imageUrl: "https://redcanoebrands.com/wp-content/uploads/2022/03/M-SST-AVL-KH_front.jpg"
+    });
+    
+    this.createProduct({
+      name: "Jaqueta Feminina Boeing",
+      slug: "jaqueta-feminina-boeing",
+      description: "Voe com estilo com a nossa Jaqueta de Voo feminina com o logo da Boeing Airplane Company.\n\nTecido com alta porcentagem de algodão\n\nCor: Chumbo\n\nForro de nylon\n\nBolsos no ombro e no interior com zíperes de metal escovado.",
+      price: "329.90",
+      discountPrice: "389.99",
+      categoryId: 2,
       featured: true,
       isNew: true,
       isBestseller: false,
-      imageUrl: "https://pixabay.com/get/ge38dece83ac98232f293c9178811a61d4698d8e7605493039f53cc1c47a3129cd59a5e996ab8c3a0213170a827814ffab2700227a01c38ceaa47f6774bdbd332_1280.jpg"
+      imageUrl: "https://redcanoebrands.com/wp-content/uploads/2021/03/Womens-BOEING-flight-jacket.jpg"
     });
     
     this.createProduct({
-      name: "Jaqueta de Couro Aviador",
-      slug: "jaqueta-couro-aviador",
-      description: "Jaqueta clássica de couro marrom no estilo bomber, com detalhes em sherpa e bolsos funcionais.",
-      price: "899.90",
-      categoryId: 1,
+      name: "Carteira Boeing de Couro com Zip",
+      slug: "carteira-boeing-couro-zip",
+      description: "Viaje com estilo Boeing, guarde seus planos de voo e valorize seus investimentos com uma carteira promissora!\n\nFeito de couro bovino\n\nCor: Caramelo\n\nDimensões: 12,7 cm (C) x 10,2 cm (L) x 1,9 cm (P)",
+      price: "149.90",
+      categoryId: 3,
       featured: true,
       isNew: false,
       isBestseller: true,
-      imageUrl: "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400"
-    });
-    
-    this.createProduct({
-      name: "Bússola de Navegação Vintage",
-      slug: "bussola-navegacao-vintage",
-      description: "Bússola de latão com acabamento envelhecido, inspirada nos instrumentos de navegação utilizados pelos primeiros aviadores.",
-      price: "349.90",
-      categoryId: 3,
-      featured: true,
-      isNew: false,
-      isBestseller: false,
-      imageUrl: "https://images.unsplash.com/photo-1560970514-863da281096f?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400"
-    });
-    
-    this.createProduct({
-      name: "Óculos Aviador Clássico",
-      slug: "oculos-aviador-classico",
-      description: "Óculos com armação dourada e lentes escuras, no estilo clássico aviador que nunca sai de moda.",
-      price: "179.90",
-      discountPrice: "249.90",
-      categoryId: 3,
-      featured: true,
-      isNew: false,
-      isBestseller: false,
-      imageUrl: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400"
+      imageUrl: "https://redcanoebrands.com/wp-content/uploads/2022/10/U-WAL-BOEING-TN_front.jpg"
     });
     
     // Add blog posts
