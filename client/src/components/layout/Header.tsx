@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { Logo } from '../ui/logo';
-import { Search, User, ShoppingBag, Menu, X } from 'lucide-react';
+import { Search, User, ShoppingBag, Menu, X, Globe } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
   const [, setLocation] = useLocation();
+  const { language, setLanguage, t } = useLanguage();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -31,17 +34,25 @@ export default function Header() {
     }
   };
   
-  // Handle the escape key to close search
+  // Handle language change
+  const toggleLanguage = () => {
+    const newLanguage = language === 'pt-BR' ? 'en-US' : 'pt-BR';
+    setLanguage(newLanguage);
+    setIsLanguageMenuOpen(false);
+  };
+  
+  // Handle the escape key to close search and language menu
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isSearchActive) {
-        setIsSearchActive(false);
+      if (e.key === 'Escape') {
+        if (isSearchActive) setIsSearchActive(false);
+        if (isLanguageMenuOpen) setIsLanguageMenuOpen(false);
       }
     };
     
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
-  }, [isSearchActive]);
+  }, [isSearchActive, isLanguageMenuOpen]);
   
   return (
     <header 
@@ -81,13 +92,42 @@ export default function Header() {
 
           {/* Right Side Actions */}
           <div className="flex items-center space-x-6">
+            {/* Language switch */}
+            <div className="relative">
+              <button 
+                className="text-white hover:text-[#D6BD94] transition-colors flex items-center space-x-1"
+                onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
+                aria-label="Change language"
+              >
+                <Globe size={18} />
+                <span className="text-xs font-bold">{language === 'pt-BR' ? 'PT' : 'EN'}</span>
+              </button>
+              
+              {isLanguageMenuOpen && (
+                <div className="absolute right-0 top-8 bg-[#161618] border border-[#333] rounded-md shadow-lg z-50 w-24">
+                  <button 
+                    className={`block w-full text-left px-3 py-2 text-sm ${language === 'pt-BR' ? 'bg-[#D6BD94]/10 text-[#D6BD94]' : 'text-white hover:bg-[#222]'}`}
+                    onClick={() => setLanguage('pt-BR')}
+                  >
+                    Português
+                  </button>
+                  <button 
+                    className={`block w-full text-left px-3 py-2 text-sm ${language === 'en-US' ? 'bg-[#D6BD94]/10 text-[#D6BD94]' : 'text-white hover:bg-[#222]'}`}
+                    onClick={() => setLanguage('en-US')}
+                  >
+                    English
+                  </button>
+                </div>
+              )}
+            </div>
+            
             {/* Search button and form */}
             <div className="relative">
               {isSearchActive ? (
                 <form onSubmit={handleSearch} className="absolute right-0 top-0 w-64 flex">
                   <input
                     type="text"
-                    placeholder="Pesquisar..."
+                    placeholder={t('search.placeholder')}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="bg-[#161618] border border-[#333] text-white rounded-l-lg px-3 py-1 w-full focus:outline-none focus:border-[#D6BD94]"

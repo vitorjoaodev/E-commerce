@@ -78,3 +78,5 @@ npm run dev
 ```
 
 O projeto estará disponível em `http://localhost:5000`
+
+Desenvolvido por: João Vitor Belasque. Github: vitorjoaodev (https://github.com/vitorjoaodev/E-commerce). LinkedIn: https://www.linkedin.com/in/joaovitorfullstack/
