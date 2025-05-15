@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { Language, getTranslation, translations } from "@/lib/i18n";
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { Language, translations, getTranslation } from '@/lib/i18n';
 
 interface LanguageContextType {
   language: Language;
@@ -10,22 +10,15 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
+  // Initialize with pt-BR (Portuguese Brazil) as default language
   const [language, setLanguageState] = useState<Language>('pt-BR');
 
-  // Load language preference from localStorage on initial render
+  // Load language preference from localStorage on mount
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const savedLanguage = localStorage.getItem('language') as Language | null;
+      const savedLanguage = localStorage.getItem('language') as Language;
       if (savedLanguage && (savedLanguage === 'pt-BR' || savedLanguage === 'en-US')) {
         setLanguageState(savedLanguage);
-      } else {
-        // Try to detect browser language
-        const browserLang = navigator.language;
-        if (browserLang.startsWith('pt')) {
-          setLanguageState('pt-BR');
-        } else {
-          setLanguageState('en-US');
-        }
       }
     }
   }, []);
@@ -35,12 +28,9 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     setLanguageState(newLanguage);
     if (typeof window !== 'undefined') {
       localStorage.setItem('language', newLanguage);
-      
-      // Update HTML lang attribute for accessibility and SEO
-      document.documentElement.lang = newLanguage === 'pt-BR' ? 'pt' : 'en';
     }
   };
-
+  
   // Translation function
   const t = (key: keyof typeof translations['pt-BR']) => {
     return getTranslation(language, key);

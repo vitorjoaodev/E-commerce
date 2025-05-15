@@ -10,7 +10,7 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps) {
-  const { showExitPopup } = useExitIntent();
+  const { showExitIntent } = useExitIntent();
 
   return (
     <div className="flex flex-col min-h-screen bg-dark-gray">
@@ -20,7 +20,7 @@ export default function Layout({ children }: LayoutProps) {
       </main>
       <Footer />
       <ShoppingCart />
-      {showExitPopup && <ExitPopup />}
+      {showExitIntent && <ExitPopup />}
     </div>
   );
 }
