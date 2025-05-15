@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useRoute, Link } from 'wouter';
 import { Helmet } from 'react-helmet';
@@ -9,7 +9,7 @@ import { Product, Category } from '@shared/schema';
 import { formatCurrency } from '@/lib/currency';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, Tag, Star, TrendingUp } from 'lucide-react';
 
 export default function CategoryPage() {
   const { language, t } = useLanguage();
@@ -17,6 +17,17 @@ export default function CategoryPage() {
   const { addToCart } = useCart();
   const [, params] = useRoute('/categoria/:slug');
   const slug = params?.slug;
+  
+  // Filter states
+  const [activeFilters, setActiveFilters] = useState<{
+    new: boolean;
+    sale: boolean;
+    bestseller: boolean;
+  }>({
+    new: false,
+    sale: false,
+    bestseller: false
+  });
 
   // Get category details
   const { data: categories = [] } = useQuery<Category[]>({
@@ -26,9 +37,30 @@ export default function CategoryPage() {
   const category = categories.find(c => c.slug === slug);
 
   // Get products for this category
-  const { data: products = [], isLoading } = useQuery<Product[]>({
+  const { data: allProducts = [], isLoading } = useQuery<Product[]>({
     queryKey: ['/api/products/category/' + (category?.id || 0)],
     enabled: !!category?.id,
+  });
+  
+  // Filter products based on active filters
+  const products = allProducts.filter(product => {
+    // If no filters are active, show all products
+    if (!activeFilters.new && !activeFilters.sale && !activeFilters.bestseller) {
+      return true;
+    }
+    
+    // Apply filters
+    if (activeFilters.new && product.isNew) {
+      return true;
+    }
+    if (activeFilters.sale && product.discountPrice) {
+      return true;
+    }
+    if (activeFilters.bestseller && product.isBestseller) {
+      return true;
+    }
+    
+    return false;
   });
 
   // Set page title when category is loaded
@@ -103,15 +135,87 @@ export default function CategoryPage() {
       </div>
 
       <div className="container mx-auto px-4 py-16">
+        {/* Filter buttons */}
+        <div className="flex flex-wrap gap-3 mb-8">
+          <Button
+            variant={activeFilters.new ? "default" : "outline"}
+            className={`flex items-center gap-2 ${
+              activeFilters.new 
+                ? "bg-[#D6BD94] text-black hover:bg-[#c4aa80]" 
+                : "border-[#D6BD94] text-[#D6BD94] hover:bg-[#D6BD94]/10"
+            }`}
+            onClick={() => setActiveFilters(prev => ({ ...prev, new: !prev.new }))}
+          >
+            <Tag size={16} />
+            Novo
+          </Button>
+          
+          <Button
+            variant={activeFilters.sale ? "default" : "outline"}
+            className={`flex items-center gap-2 ${
+              activeFilters.sale 
+                ? "bg-[#D6BD94] text-black hover:bg-[#c4aa80]" 
+                : "border-[#D6BD94] text-[#D6BD94] hover:bg-[#D6BD94]/10"
+            }`}
+            onClick={() => setActiveFilters(prev => ({ ...prev, sale: !prev.sale }))}
+          >
+            <Star size={16} />
+            Promoção
+          </Button>
+          
+          <Button
+            variant={activeFilters.bestseller ? "default" : "outline"}
+            className={`flex items-center gap-2 ${
+              activeFilters.bestseller 
+                ? "bg-[#D6BD94] text-black hover:bg-[#c4aa80]" 
+                : "border-[#D6BD94] text-[#D6BD94] hover:bg-[#D6BD94]/10"
+            }`}
+            onClick={() => setActiveFilters(prev => ({ ...prev, bestseller: !prev.bestseller }))}
+          >
+            <TrendingUp size={16} />
+            Mais Vendidos
+          </Button>
+          
+          {(activeFilters.new || activeFilters.sale || activeFilters.bestseller) && (
+            <Button
+              variant="ghost"
+              className="text-gray-400 hover:text-white"
+              onClick={() => setActiveFilters({ new: false, sale: false, bestseller: false })}
+            >
+              Limpar filtros
+            </Button>
+          )}
+          
+          {/* Count of products being shown */}
+          <div className="ml-auto text-[#D6BD94]">
+            {products.length} produto{products.length !== 1 ? 's' : ''} encontrado{products.length !== 1 ? 's' : ''}
+          </div>
+        </div>
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {products.length === 0 ? (
             <div className="col-span-full text-center text-light-beige py-10">
-              <p className="text-xl mb-4">Nenhum produto encontrado nesta categoria.</p>
-              <Link href="/">
-                <Button variant="outline" className="adventure-title border-vintage-beige text-vintage-beige hover:bg-vintage-beige hover:text-dark-gray">
-                  Voltar para a página inicial
-                </Button>
-              </Link>
+              {activeFilters.new || activeFilters.sale || activeFilters.bestseller ? (
+                <>
+                  <p className="text-xl mb-4">Nenhum produto encontrado com os filtros selecionados.</p>
+                  <Button 
+                    variant="outline" 
+                    className="border-[#D6BD94] text-[#D6BD94] hover:bg-[#D6BD94]/10"
+                    onClick={() => setActiveFilters({ new: false, sale: false, bestseller: false })}
+                  >
+                    Limpar filtros
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <p className="text-xl mb-4">Nenhum produto encontrado nesta categoria.</p>
+                  <Link href="/">
+                    <Button variant="outline" className="border-[#D6BD94] text-[#D6BD94] hover:bg-[#D6BD94]/10">
+                      Voltar para a página inicial
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
           ) : (
             products.map((product) => (
