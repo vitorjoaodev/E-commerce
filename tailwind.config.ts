@@ -2,7 +2,14 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
+  content: [
+    "./client/index.html", 
+    "./client/src/**/*.{js,jsx,ts,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}"
+  ],
   theme: {
     extend: {
       borderRadius: {
@@ -44,6 +51,22 @@ export default {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
+        
+        // Project custom colors
+        "adventure-yellow": {
+          DEFAULT: "hsl(var(--adventure-yellow))",
+          foreground: "hsl(var(--adventure-yellow-foreground))",
+        },
+        "aviation-blue": {
+          DEFAULT: "hsl(var(--aviation-blue))",
+          foreground: "hsl(var(--aviation-blue-foreground))",
+        },
+        "dark-gray": {
+          DEFAULT: "hsl(var(--dark-gray))",
+          foreground: "hsl(var(--dark-gray-foreground))",
+        },
+        
+        // Legacy colors from template
         chart: {
           "1": "hsl(var(--chart-1))",
           "2": "hsl(var(--chart-2))",

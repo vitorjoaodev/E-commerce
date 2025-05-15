@@ -1,23 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   images: {
-    domains: ['cdn.jsdelivr.net'],
-  },
-  i18n: {
-    locales: ['pt-BR', 'en-US'],
-    defaultLocale: 'pt-BR',
+    domains: ['images.unsplash.com', 'placehold.co'],
   },
   async rewrites() {
     return [
-      // API routes
       {
         source: '/api/:path*',
-        destination: '/api/:path*',
+        destination: 'http://localhost:5000/api/:path*',
       },
     ];
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;

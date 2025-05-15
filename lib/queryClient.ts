@@ -1,12 +1,26 @@
 import { QueryClient } from '@tanstack/react-query';
 
+/**
+ * Helper function to throw an error if a response is not OK
+ */
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
     const errorText = await res.text();
-    throw new Error(errorText || `Failed with status: ${res.status}`);
+    try {
+      const json = JSON.parse(errorText);
+      if (json.message) {
+        throw new Error(json.message);
+      }
+    } catch (e) {
+      // Not JSON or no message property
+    }
+    throw new Error(`HTTP Error ${res.status}: ${res.statusText || errorText}`);
   }
 }
 
+/**
+ * Generic API request function with error handling
+ */
 export async function apiRequest<T = any>(
   input: RequestInfo,
   init?: RequestInit
@@ -18,45 +32,50 @@ export async function apiRequest<T = any>(
       'Content-Type': 'application/json',
     },
   });
-
+  
   await throwIfResNotOk(res);
-
+  
+  // For non-GET requests with 204 (No Content) status, return empty object
+  if (res.status === 204) {
+    return {} as T;
+  }
+  
   return res.json();
 }
 
+/**
+ * Type for how to handle 401 responses
+ */
 type UnauthorizedBehavior = "returnNull" | "throw";
 
+/**
+ * Function to create a query function with custom 401 handling
+ */
 export const getQueryFn = <T>(options: {
   on401: UnauthorizedBehavior;
-}) => {
-  return async (params: { queryKey: readonly (string | number)[] }): Promise<T | null> => {
-    // Convert array key to path
-    const path = params.queryKey.join('/');
-    
+} = { on401: "throw" }) => {
+  return async ({ queryKey }: { queryKey: readonly (string | number)[] }) => {
     try {
-      const res = await fetch(path);
-      
-      if (res.status === 401 && options.on401 === "returnNull") {
+      const path = queryKey.join('/');
+      return await apiRequest<T>(path);
+    } catch (error: any) {
+      if (error?.status === 401 && options.on401 === "returnNull") {
         return null;
       }
-      
-      await throwIfResNotOk(res);
-      
-      return res.json();
-    } catch (error) {
-      console.error(`Error fetching ${path}:`, error);
       throw error;
     }
   };
 };
 
+/**
+ * QueryClient instance with default configuration
+ */
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes
       retry: 1,
       refetchOnWindowFocus: false,
-      staleTime: 1000 * 60 * 5, // 5 minutes
-      queryFn: getQueryFn<any>({ on401: "throw" }),
     },
   },
 });

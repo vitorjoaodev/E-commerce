@@ -3,69 +3,158 @@
 @tailwind utilities;
 
 :root {
-  --background: 220 13% 18%;
-  --foreground: 39 30% 84%;
+  --background: 200 14% 14%;
+  --foreground: 0 0% 100%;
   
-  --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%;
+  --adventure-yellow: 45 100% 60%;
+  --adventure-yellow-foreground: 0 0% 10%;
   
-  --popover: 0 0% 100%;
-  --popover-foreground: 222.2 84% 4.9%;
+  --aviation-blue: 210 90% 50%;
+  --aviation-blue-foreground: 0 0% 100%;
   
-  --card: 222 13% 22%;
-  --card-foreground: 39 30% 84%;
+  --dark-gray: 200 14% 14%;
+  --dark-gray-foreground: 0 0% 100%;
   
-  --border: 214 32% 30%;
-  --input: 214 32% 30%;
+  --muted: 210 40% 93%;
+  --muted-foreground: 215 25% 25%;
   
-  --primary: 210 84% 43%;
-  --primary-foreground: 39 30% 84%;
-  
-  --secondary: 39 67% 50%;
-  --secondary-foreground: 220 13% 18%;
-  
-  --accent: 210 34% 63%;
-  --accent-foreground: 222.2 47.4% 11.2%;
+  --accent: 45 100% 60%;
+  --accent-foreground: 0 0% 10%;
   
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 210 40% 98%;
   
-  --ring: 210 84% 43%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 45 100% 60%;
   
   --radius: 0.5rem;
+}
+
+.dark {
+  --background: 200 14% 14%;
+  --foreground: 0 0% 100%;
   
-  --dark-gray: 220 13% 18%;
-  --light-beige: 39 30% 84%;
-  --vintage-beige: 39 30% 84%;
-  --adventure-yellow: 39 67% 50%;
-  --aviation-blue: 210 84% 43%;
+  --card: 0 0% 12%;
+  --card-foreground: 0 0% 100%;
+  
+  --popover: 0 0% 12%;
+  --popover-foreground: 0 0% 100%;
+  
+  --primary: 45 100% 60%;
+  --primary-foreground: 0 0% 10%;
+  
+  --secondary: 210 90% 50%;
+  --secondary-foreground: 0 0% 100%;
+  
+  --muted: 0 0% 20%;
+  --muted-foreground: 0 0% 70%;
+  
+  --accent: 45 100% 60%; 
+  --accent-foreground: 0 0% 10%;
+  
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 100%;
+  
+  --border: 0 0% 25%;
+  --input: 0 0% 25%;
+  --ring: 45 100% 60%;
 }
 
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
-    @apply bg-dark-gray text-light-beige;
+    @apply bg-dark-gray text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+
+  h4 {
+    @apply text-xl md:text-2xl;
+  }
+
+  .text-adventure-yellow {
+    color: hsl(var(--adventure-yellow));
+  }
+
+  .bg-adventure-yellow {
+    background-color: hsl(var(--adventure-yellow));
+  }
+
+  .text-aviation-blue {
+    color: hsl(var(--aviation-blue));
+  }
+
+  .bg-aviation-blue {
+    background-color: hsl(var(--aviation-blue));
+  }
+
+  .text-dark-gray {
+    color: hsl(var(--dark-gray));
+  }
+
+  .bg-dark-gray {
+    background-color: hsl(var(--dark-gray));
+  }
+
+  .border-adventure-yellow {
+    border-color: hsl(var(--adventure-yellow));
+  }
+
+  .border-aviation-blue {
+    border-color: hsl(var(--aviation-blue));
   }
 }
 
-@layer components {
-  .adventure-title {
-    font-family: 'Georgia', serif;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+/* Animation classes */
+.animate-in {
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+
+.slide-in-from-right {
+  animation-name: slideInFromRight;
+}
+
+.zoom-in-90 {
+  animation-name: zoomIn90;
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
   }
-  
-  .vintage-shadow {
-    box-shadow: 4px 4px 0px 0px rgba(245, 158, 11, 0.5);
+  to {
+    transform: translateX(0);
   }
 }
 
-@font-face {
-  font-family: 'AdventureFont';
-  src: url('/fonts/adventure.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+@keyframes zoomIn90 {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
