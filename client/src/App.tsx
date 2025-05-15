@@ -1,13 +1,9 @@
 import { Switch, Route } from "wouter";
 import { Toaster } from "@/components/ui/toaster";
-import NotFound from "@/pages/not-found";
+import NotFound from "./pages/not-found";
 
 import { useEffect, lazy, Suspense } from "react";
-import { useExitIntent } from "./hooks/useExitIntent";
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
-import ShoppingCart from "./components/layout/ShoppingCart";
-import ExitPopup from "./components/layout/ExitPopup";
+import Layout from "./components/layout/Layout";
 
 // Lazy load pages for better performance
 const Home = lazy(() => import("./pages/Home"));
@@ -36,8 +32,6 @@ function Router() {
 }
 
 function App() {
-  const { showExitPopup } = useExitIntent();
-
   useEffect(() => {
     // Set page title for SEO
     document.title = "Piloto Inteligente - Loja Online de Acessórios de Aviação Vintage";
@@ -73,16 +67,10 @@ function App() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-dark-gray">
-      <Header />
-      <main className="flex-grow">
-        <Router />
-      </main>
-      <Footer />
-      <ShoppingCart />
-      {showExitPopup && <ExitPopup />}
+    <Layout>
+      <Router />
       <Toaster />
-    </div>
+    </Layout>
   );
 }
 

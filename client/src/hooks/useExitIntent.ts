@@ -10,92 +10,77 @@ interface UseExitIntentOptions {
 export function useExitIntent({
   sensitivity = 20,
   timeout = 1000,
-  cookieExpiration = 30, // days
+  cookieExpiration = 30,
   showOncePerSession = true,
 }: UseExitIntentOptions = {}) {
-  const [showExitPopup, setShowExitPopup] = useState(false);
-  const [hasShownPopup, setHasShownPopup] = useState(false);
+  const [showExitIntent, setShowExitIntent] = useState(false);
+  const [hasShownExitIntent, setHasShownExitIntent] = useState(false);
 
   useEffect(() => {
-    let delayTimer: ReturnType<typeof setTimeout>;
-    let hasUserLeft = false;
+    let timeoutId: NodeJS.Timeout;
+    let hasMounted = true;
 
-    // Check if we've already shown the popup in this session
-    if (showOncePerSession) {
-      const hasShown = sessionStorage.getItem('exitPopupShown');
-      if (hasShown === 'true') {
-        setHasShownPopup(true);
+    const shouldShowExitIntent = () => {
+      // Check for cookie if show once
+      if (showOncePerSession) {
+        try {
+          const hasShown = sessionStorage.getItem('exitIntentShown');
+          if (hasShown === 'true') {
+            return false;
+          }
+        } catch (e) {
+          // Session storage not available - continue anyway
+        }
       }
-    }
 
-    // Check if we've shown the popup in a previous session and still have a valid cookie
-    const checkCookie = () => {
-      const exitPopupShownCookie = document.cookie
-        .split('; ')
-        .find(row => row.startsWith('exitPopupShown='));
-      
-      if (exitPopupShownCookie) {
-        return true;
+      // Don't show on mobile since there's no mouse movement
+      if (window.innerWidth <= 768) {
+        return false;
       }
-      return false;
+
+      return !hasShownExitIntent;
     };
 
-    if (checkCookie()) {
-      setHasShownPopup(true);
-    }
-
     const handleMouseLeave = (e: MouseEvent) => {
-      // Only trigger when mouse leaves through the top of the page with some sensitivity
-      if (e.clientY <= sensitivity && !hasUserLeft && !hasShownPopup) {
-        hasUserLeft = true;
-        
-        // Delay the popup to avoid false triggers
-        delayTimer = setTimeout(() => {
-          setShowExitPopup(true);
-          setHasShownPopup(true);
+      if (
+        e.clientY <= sensitivity &&
+        e.relatedTarget === null &&
+        shouldShowExitIntent()
+      ) {
+        // Clear any existing timeouts
+        if (timeoutId) clearTimeout(timeoutId);
 
-          // Set session storage flag
-          if (showOncePerSession) {
-            sessionStorage.setItem('exitPopupShown', 'true');
+        // Set a timeout to prevent false triggers
+        timeoutId = setTimeout(() => {
+          if (hasMounted) {
+            setShowExitIntent(true);
+            setHasShownExitIntent(true);
+
+            // Mark as shown in session storage
+            try {
+              sessionStorage.setItem('exitIntentShown', 'true');
+            } catch (e) {
+              // Session storage not available - continue anyway
+            }
           }
-
-          // Set cookie for future sessions
-          const date = new Date();
-          date.setTime(date.getTime() + (cookieExpiration * 24 * 60 * 60 * 1000));
-          document.cookie = `exitPopupShown=true; expires=${date.toUTCString()}; path=/`;
         }, timeout);
       }
     };
 
-    const handleMouseEnter = () => {
-      // Clear the timer if the user moves back into the page
-      if (delayTimer) {
-        clearTimeout(delayTimer);
-        hasUserLeft = false;
-      }
-    };
-
-    // For testing purposes, show the popup after 10 seconds
-    const testTimer = setTimeout(() => {
-      if (!hasShownPopup && process.env.NODE_ENV === 'development') {
-        setShowExitPopup(true);
-      }
-    }, 10000);
-
+    // Add the event listener
     document.addEventListener('mouseleave', handleMouseLeave);
-    document.addEventListener('mouseenter', handleMouseEnter);
 
+    // Clean up
     return () => {
-      if (delayTimer) clearTimeout(delayTimer);
-      if (testTimer) clearTimeout(testTimer);
+      hasMounted = false;
       document.removeEventListener('mouseleave', handleMouseLeave);
-      document.removeEventListener('mouseenter', handleMouseEnter);
+      if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [hasShownPopup, sensitivity, timeout, cookieExpiration, showOncePerSession]);
+  }, [sensitivity, timeout, cookieExpiration, showOncePerSession, hasShownExitIntent]);
 
-  const closeExitPopup = () => {
-    setShowExitPopup(false);
+  const resetExitIntent = () => {
+    setShowExitIntent(false);
   };
 
-  return { showExitPopup, closeExitPopup };
+  return { showExitIntent, resetExitIntent };
 }

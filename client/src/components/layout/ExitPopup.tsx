@@ -1,122 +1,134 @@
 import { useState } from 'react';
-import { useLanguage } from '@/context/LanguageContext';
-import { useToast } from '@/hooks/use-toast';
-import { apiRequest } from '@/lib/queryClient';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-
-const subscribeSchema = z.object({
-  email: z.string().email('Email inválido'),
-});
-
-type SubscribeFormData = z.infer<typeof subscribeSchema>;
 
 interface ExitPopupProps {
   onClose?: () => void;
 }
 
 export default function ExitPopup({ onClose }: ExitPopupProps) {
-  const { t } = useLanguage();
-  const { toast } = useToast();
+  const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
 
-  const form = useForm<SubscribeFormData>({
-    resolver: zodResolver(subscribeSchema),
-    defaultValues: {
-      email: '',
-    },
-  });
-
-  const handleSubscribe = async (data: SubscribeFormData) => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+      setError('Por favor, insira um e-mail válido.');
+      return;
+    }
+    
     setIsSubmitting(true);
+    setError('');
+    
     try {
-      await apiRequest('POST', '/api/newsletter/subscribe', data);
-      toast({
-        title: 'Sucesso!',
-        description: 'Seu código de desconto será enviado para o seu email.',
-        variant: 'default',
+      const response = await fetch('/api/newsletter/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
       });
       
-      if (onClose) {
-        onClose();
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        setError('Ocorreu um erro. Por favor, tente novamente.');
       }
     } catch (error) {
-      console.error('Error subscribing to newsletter:', error);
-      toast({
-        title: 'Erro',
-        description: 'Não foi possível se inscrever. Tente novamente mais tarde.',
-        variant: 'destructive',
-      });
+      setError('Ocorreu um erro. Por favor, tente novamente.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-dark-gray/80 z-50 flex items-center justify-center">
-      <div className="exit-popup bg-dark-gray border-2 border-adventure-yellow rounded-lg p-8 max-w-md mx-4 relative animate-fadeIn">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute top-4 right-4 text-vintage-beige hover:text-adventure-yellow"
+    <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+      <div className="relative w-full max-w-md bg-[#121212] border border-[#333] rounded-lg shadow-2xl overflow-hidden">
+        {/* Close button */}
+        <button 
           onClick={onClose}
+          className="absolute top-4 right-4 text-white/70 hover:text-white z-20"
+          aria-label="Fechar"
         >
-          <X size={20} />
-        </Button>
+          <X size={24} />
+        </button>
         
-        <div className="text-center mb-6">
-          <div className="adventure-title text-4xl text-adventure-yellow mb-2">{t('exitPopup.title')}</div>
-          <p className="text-xl text-light-beige">{t('exitPopup.subtitle')}</p>
+        {/* Background image with overlay */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/SpitfireIX611a.jpg/640px-SpitfireIX611a.jpg" 
+            alt="Spitfire" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-[#121212]"></div>
         </div>
         
-        <div className="mb-6">
-          <div className="text-center mb-4">
-            <span className="adventure-title text-6xl text-adventure-yellow">15%</span>
-            <p className="text-vintage-beige">{t('exitPopup.discount')}</p>
-          </div>
-          <p className="text-light-beige text-center mb-4">
-            {t('exitPopup.offer')}
-          </p>
+        {/* Content */}
+        <div className="relative z-10 p-8 pt-10">
+          {!submitted ? (
+            <>
+              <div className="text-center mb-6">
+                <h2 className="text-3xl font-bold text-[#D6BD94] mb-2">ESPERE, PILOTO!</h2>
+                <p className="text-white text-lg">Não perca essa oportunidade</p>
+              </div>
+              
+              <div className="bg-black/40 p-4 rounded-lg border border-[#D6BD94]/30 mb-6">
+                <div className="text-center">
+                  <span className="text-5xl font-bold text-[#D6BD94] block mb-1">15% OFF</span>
+                  <p className="text-white/80">em sua primeira compra</p>
+                </div>
+              </div>
+              
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Seu melhor e-mail"
+                    className="w-full p-3 bg-black/50 border border-[#333] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-[#D6BD94] focus:border-transparent"
+                    disabled={isSubmitting}
+                    required
+                  />
+                  {error && <p className="text-red-400 text-sm mt-1">{error}</p>}
+                </div>
+                
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-3 bg-[#D6BD94] text-black font-bold rounded-md hover:bg-[#C4AA80] transition-colors disabled:opacity-70"
+                >
+                  {isSubmitting ? 'Enviando...' : 'OBTER MEU DESCONTO'}
+                </button>
+              </form>
+              
+              <p className="text-white/50 text-xs text-center mt-4">
+                Ao assinar, você concorda com nossa Política de Privacidade.
+                Nós respeitamos sua privacidade e nunca compartilharemos seus dados.
+              </p>
+            </>
+          ) : (
+            <div className="text-center py-8">
+              <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h2 className="text-3xl font-bold text-[#D6BD94] mb-4">OBRIGADO!</h2>
+              <p className="text-white text-lg mb-2">Seu código de desconto foi enviado</p>
+              <p className="text-white/70">Verifique seu e-mail e aproveite!</p>
+              
+              <button
+                onClick={onClose}
+                className="mt-8 px-6 py-2 bg-[#D6BD94] text-black font-bold rounded-md hover:bg-[#C4AA80] transition-colors"
+              >
+                CONTINUAR NAVEGANDO
+              </button>
+            </div>
+          )}
         </div>
-        
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubscribe)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder={t('exitPopup.emailPlaceholder')}
-                      className="w-full py-3 px-4 bg-dark-gray border border-vintage-beige/50 rounded-lg text-light-beige focus:outline-none focus:border-adventure-yellow"
-                      disabled={isSubmitting}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage className="text-adventure-yellow text-sm mt-1" />
-                </FormItem>
-              )}
-            />
-            
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="adventure-title w-full px-6 py-3 bg-adventure-yellow text-dark-gray hover:bg-aviation-blue hover:text-light-beige transition duration-300 rounded-lg"
-            >
-              {isSubmitting ? 'Enviando...' : t('exitPopup.getDiscount')}
-            </Button>
-          </form>
-        </Form>
-        
-        <p className="text-light-beige/60 text-xs text-center mt-4">
-          {t('exitPopup.privacy')}
-        </p>
       </div>
     </div>
   );

@@ -14,11 +14,11 @@
   --card-foreground: 20 14.3% 4.1%;
   --border: 20 5.9% 90%;
   --input: 20 5.9% 90%;
-  --primary: 45 93% 47%; /* Gold/Yellow color */
+  --primary: 36 55% 75%; /* Beige color */
   --primary-foreground: 0 0% 0%;
   --secondary: 60 4.8% 95.9%;
   --secondary-foreground: 24 9.8% 10%;
-  --accent: 45 93% 53%; /* Brighter gold for hover states */
+  --accent: 36 65% 85%; /* Brighter beige for hover states */
   --accent-foreground: 24 9.8% 10%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 60 9.1% 97.8%;
@@ -26,7 +26,7 @@
   --radius: 0.5rem;
 
   /* Aviator theme specific colors */
-  --adventure-yellow: 45 93% 47%;
+  --adventure-beige: 36 55% 75%;
   --dark-gray: 240 10% 10%;
   --light-gray: 0 0% 85%;
 }

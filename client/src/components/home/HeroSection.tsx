@@ -7,7 +7,7 @@ export default function HeroSection() {
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center" 
         style={{ 
-          backgroundImage: 'url(https://images.unsplash.com/photo-1516222513604-f0ed6d09e8fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80)',
+          backgroundImage: 'url(https://lh3.googleusercontent.com/proxy/RhwZAZJ6H_rNA6YuuINXFFHAErWbLbmFRV6DK9h5PqYUrxBw9i-hhxgLP1sJMzExNtHls0x6EWKeUHnvmmP3K8lt4ydmhy-v4Xms2rzNlqsNPApa1SkwNX2ZJSOb75AdWw_Yt0NuEdN0X3HSwpSTP1WvaCOcg-ZN8aADs3RbgEyee6avd8byxlz6hK3H)',
           filter: 'brightness(0.3) contrast(1.2)'
         }}
       />
