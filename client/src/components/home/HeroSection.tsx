@@ -7,7 +7,7 @@ export default function HeroSection() {
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center" 
         style={{ 
-          backgroundImage: 'url(https://images.squarespace-cdn.com/content/v1/607892d0460d6f7768d704ef/1627388148002-SRUB8FE3HF3H1ZBU06KK/The-Canadians14.jpg)',
+          backgroundImage: 'url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9-PuMPIjq0wzn8XNgA7sxoTrnDCRXiou2OBbmspQc0pFck8nxs1SVSH1ZiegIp9KFy30&usqp=CAU)',
           filter: 'brightness(0.3) contrast(1.2)'
         }}
       />

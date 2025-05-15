@@ -34,34 +34,35 @@ export default function OurStory() {
         <div className="container mx-auto px-4 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-3xl font-bold mb-6 text-[#D6BD94]">Como tudo começou</h2>
+              <h2 className="text-3xl font-bold mb-6 text-[#D6BD94]">História da Piloto Inteligente</h2>
               <p className="text-gray-300 mb-6 leading-relaxed">
-                A Piloto Inteligente nasceu da paixão pela aviação do seu fundador, João Vitor Belasque. 
-                Piloto experiente e entusiasta da história aeronáutica, João sempre foi fascinado pela 
-                era de ouro da aviação - um tempo de pioneiros e aventureiros que desbravavam os céus 
-                com determinação e estilo.
+                A Piloto Inteligente nasceu da paixão pela aviação e sua rica história. Nossa jornada 
+                começou quando dois amigos pilotos decidiram unir o amor pelos céus com design contemporâneo, 
+                criando peças que celebram o espírito aventureiro dos pioneiros da aviação.
               </p>
               <p className="text-gray-300 mb-6 leading-relaxed">
-                Em 2018, após anos pilotando aeronaves comerciais e estudando a rica história da 
-                aviação brasileira e mundial, João identificou uma oportunidade única: criar uma marca 
-                que capturasse a essência daquela época e a transformasse em peças contemporâneas, 
-                mantendo viva a memória e estética dos primeiros dias da aviação.
+                Cada item de nossa coleção conta uma história de coragem, inovação e exploração. 
+                Trabalhamos com os melhores materiais e artesãos para criar produtos que não apenas 
+                carregam a nostalgia dos tempos dourados da aviação, mas também atendem às necessidades 
+                do aventureiro moderno.
               </p>
               <p className="text-gray-300 leading-relaxed">
-                A ideia era simples: desenvolver roupas e acessórios que não fossem apenas bonitos e 
-                funcionais, mas que contassem histórias, prestassem homenagem a aeronaves lendárias e 
-                transmitissem aquele espírito de aventura que define a aviação.
+                "Vestir uma peça da Piloto Inteligente é levar consigo um pouco do espírito de liberdade 
+                que só quem já cortou as nuvens pode entender."
+              </p>
+              <p className="text-[#D6BD94] mt-4">
+                — Carlos Drummond, Fundador
               </p>
             </div>
             
             <div className="rounded-lg overflow-hidden shadow-xl">
               <img 
                 src="https://images.squarespace-cdn.com/content/v1/607892d0460d6f7768d704ef/1627388148002-SRUB8FE3HF3H1ZBU06KK/The-Canadians14.jpg" 
-                alt="João Vitor Belasque, Fundador" 
+                alt="Carlos Drummond, Fundador" 
                 className="w-full h-full object-cover" 
               />
               <div className="bg-[#161618] p-4">
-                <p className="text-center text-[#D6BD94]">João Vitor Belasque, Fundador</p>
+                <p className="text-center text-[#D6BD94]">Carlos Drummond, Fundador</p>
               </div>
             </div>
           </div>
