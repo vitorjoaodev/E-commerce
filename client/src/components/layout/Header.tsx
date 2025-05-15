@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { Logo } from '../ui/logo';
 import { Search, User, ShoppingBag, Menu, X } from 'lucide-react';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchActive, setIsSearchActive] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [, setLocation] = useLocation();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -17,6 +20,28 @@ export default function Header() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+  
+  // Handle the search form submission
+  const handleSearch = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    
+    if (searchQuery.trim()) {
+      setLocation(`/pesquisa?q=${encodeURIComponent(searchQuery.trim())}`);
+      setIsSearchActive(false); // Hide search after submitting
+    }
+  };
+  
+  // Handle the escape key to close search
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isSearchActive) {
+        setIsSearchActive(false);
+      }
+    };
+    
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [isSearchActive]);
   
   return (
     <header 
@@ -56,10 +81,35 @@ export default function Header() {
 
           {/* Right Side Actions */}
           <div className="flex items-center space-x-6">
-            {/* Search button */}
-            <button className="text-white hover:text-[#D6BD94] transition-colors">
-              <Search size={20} />
-            </button>
+            {/* Search button and form */}
+            <div className="relative">
+              {isSearchActive ? (
+                <form onSubmit={handleSearch} className="absolute right-0 top-0 w-64 flex">
+                  <input
+                    type="text"
+                    placeholder="Pesquisar..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="bg-[#161618] border border-[#333] text-white rounded-l-lg px-3 py-1 w-full focus:outline-none focus:border-[#D6BD94]"
+                    autoFocus
+                  />
+                  <button 
+                    type="submit" 
+                    className="bg-[#D6BD94] text-black px-3 py-1 rounded-r-lg hover:bg-[#C4AA80]"
+                  >
+                    <Search size={16} />
+                  </button>
+                </form>
+              ) : (
+                <button 
+                  className="text-white hover:text-[#D6BD94] transition-colors"
+                  onClick={() => setIsSearchActive(true)}
+                  aria-label="Abrir pesquisa"
+                >
+                  <Search size={20} />
+                </button>
+              )}
+            </div>
             
             {/* User account */}
             <Link to="/conta" className="hidden sm:block text-white hover:text-[#D6BD94] transition-colors">

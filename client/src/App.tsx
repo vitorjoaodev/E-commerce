@@ -13,6 +13,8 @@ const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 const OurStory = lazy(() => import("./pages/OurStory"));
 const Checkout = lazy(() => import("./pages/Checkout"));
+const Search = lazy(() => import("./pages/Search"));
+const Account = lazy(() => import("./pages/Account"));
 
 function Router() {
   return (
@@ -25,6 +27,8 @@ function Router() {
         <Route path="/blog/:slug" component={BlogPost} />
         <Route path="/nossa-historia" component={OurStory} />
         <Route path="/checkout" component={Checkout} />
+        <Route path="/pesquisa" component={Search} />
+        <Route path="/conta" component={Account} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>
