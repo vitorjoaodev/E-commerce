@@ -1,6 +1,8 @@
 import { Link } from 'wouter';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function HeroSection() {
+  const { t } = useLanguage();
   return (
     <section className="relative overflow-hidden bg-[#0a0a0c] min-h-[80vh] flex items-center">
       {/* Background with overlay */}
@@ -21,13 +23,12 @@ export default function HeroSection() {
       <div className="container mx-auto px-4 py-16 relative z-20">
         <div className="max-w-4xl">
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4">
-            <div className="text-white">DESCUBRA O ESPÍRITO DA</div>
+            <div className="text-white">{t('hero.title')}</div>
             <div className="text-[#D6BD94] mt-2">AVENTURA AÉREA</div>
           </h1>
           
           <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl">
-            Trajes e acessórios que transformam a nostalgia da aviação clássica em 
-            estilo contemporâneo. Para quem leva a aventura no sangue.
+            {t('hero.subtitle')}
           </p>
           
           <div className="flex flex-wrap gap-4 mb-12">
@@ -35,7 +36,7 @@ export default function HeroSection() {
               <button 
                 className="px-8 py-3 bg-[#D6BD94] text-black font-bold text-lg rounded-md hover:bg-[#C4AA80] transition-all duration-300 shadow-[0_0_15px_rgba(214,189,148,0.4)]"
               >
-                COLEÇÃO MASCULINA
+                {t('categories.aviador')}
               </button>
             </Link>
             
@@ -43,7 +44,7 @@ export default function HeroSection() {
               <button 
                 className="px-8 py-3 border-2 border-[#D6BD94] text-[#D6BD94] font-bold text-lg rounded-md hover:bg-[#D6BD94]/10 transition-all duration-300"
               >
-                COLEÇÃO FEMININA
+                {t('categories.aviadora')}
               </button>
             </Link>
           </div>
@@ -54,21 +55,21 @@ export default function HeroSection() {
               <div className="w-12 h-12 rounded-full border-2 border-[#D6BD94] flex items-center justify-center mr-3">
                 <span className="text-2xl">✦</span>
               </div>
-              <span className="uppercase text-sm font-bold">Peças Exclusivas</span>
+              <span className="uppercase text-sm font-bold">{t('hero.badge1') || 'Peças Exclusivas'}</span>
             </div>
             
             <div className="flex items-center">
               <div className="w-12 h-12 rounded-full border-2 border-[#D6BD94] flex items-center justify-center mr-3">
                 <span className="text-2xl">✦</span>
               </div>
-              <span className="uppercase text-sm font-bold">Alta Qualidade</span>
+              <span className="uppercase text-sm font-bold">{t('hero.badge2') || 'Alta Qualidade'}</span>
             </div>
             
             <div className="flex items-center">
               <div className="w-12 h-12 rounded-full border-2 border-[#D6BD94] flex items-center justify-center mr-3">
                 <span className="text-2xl">✦</span>
               </div>
-              <span className="uppercase text-sm font-bold">Estilo Atemporal</span>
+              <span className="uppercase text-sm font-bold">{t('hero.badge3') || 'Estilo Atemporal'}</span>
             </div>
           </div>
         </div>

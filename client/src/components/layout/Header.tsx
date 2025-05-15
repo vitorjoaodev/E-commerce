@@ -74,19 +74,19 @@ export default function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <Link to="/categoria/aviador" className="text-white hover:text-[#D6BD94] transition-colors">
-              Aviador
+              {t('nav.aviador')}
             </Link>
             <Link to="/categoria/aviadora" className="text-white hover:text-[#D6BD94] transition-colors">
-              Aviadora
+              {t('nav.aviadora')}
             </Link>
             <Link to="/categoria/acessorios" className="text-white hover:text-[#D6BD94] transition-colors">
-              Acessórios
+              {t('nav.accessories')}
             </Link>
             <Link to="/blog" className="text-white hover:text-[#D6BD94] transition-colors">
-              Blog
+              {t('nav.blog')}
             </Link>
             <Link to="/nossa-historia" className="text-white hover:text-[#D6BD94] transition-colors">
-              Nossa História
+              {t('nav.history')}
             </Link>
           </nav>
 
@@ -173,22 +173,22 @@ export default function Header() {
           <div className="container mx-auto px-4">
             <nav className="flex flex-col space-y-4">
               <Link to="/categoria/aviador" className="text-white hover:text-[#D6BD94] py-2 border-b border-[#222] transition-colors">
-                Aviador
+                {t('nav.aviador')}
               </Link>
               <Link to="/categoria/aviadora" className="text-white hover:text-[#D6BD94] py-2 border-b border-[#222] transition-colors">
-                Aviadora
+                {t('nav.aviadora')}
               </Link>
               <Link to="/categoria/acessorios" className="text-white hover:text-[#D6BD94] py-2 border-b border-[#222] transition-colors">
-                Acessórios
+                {t('nav.accessories')}
               </Link>
               <Link to="/blog" className="text-white hover:text-[#D6BD94] py-2 border-b border-[#222] transition-colors">
-                Blog
+                {t('nav.blog')}
               </Link>
               <Link to="/nossa-historia" className="text-white hover:text-[#D6BD94] py-2 transition-colors">
-                Nossa História
+                {t('nav.history')}
               </Link>
               <Link to="/conta" className="text-white hover:text-[#D6BD94] py-2 border-t border-[#222] transition-colors">
-                Minha Conta
+                {language === 'pt-BR' ? 'Minha Conta' : 'My Account'}
               </Link>
             </nav>
           </div>
