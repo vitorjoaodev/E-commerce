@@ -253,7 +253,7 @@ export class MemStorage implements IStorage {
     });
     
     this.createProduct({
-      name: "Jaqueta Feminina Boeing",
+      name: "Jaqueta Boeing - Feminino",
       slug: "jaqueta-feminina-boeing",
       description: "Voe com estilo com a nossa Jaqueta de Voo feminina com o logo da Boeing Airplane Company.\n\nTecido com alta porcentagem de algodão\n\nCor: Chumbo\n\nForro de nylon\n\nBolsos no ombro e no interior com zíperes de metal escovado.",
       price: "329.90",
@@ -275,6 +275,84 @@ export class MemStorage implements IStorage {
       isNew: false,
       isBestseller: true,
       imageUrl: "https://redcanoebrands.com/wp-content/uploads/2022/10/U-WAL-BOEING-TN_front.jpg"
+    });
+    
+    // Adicionar produto: Agasalho Boeing Masculino
+    this.createProduct({
+      name: "Agasalho Boeing - Masculino",
+      slug: "agasalho-boeing-masculino",
+      description: "Este moletom pesado, porém macio e rico em algodão, foi feito para ser usado no dia a dia. As letras em aplique duplo de feltro, ousadas e gráficas, são uma homenagem ao design e à qualidade vintage. Seu corte relaxado, o calor e o conforto fazem deste moletom um companheiro perfeito para muitas aventuras — mesmo que seja uma bem tranquila.\n\nMoletom com zíper completo feito de mistura de algodão pesada\n\nCor: Cinza\n\nPunhos e barra inferior em malha canelada\n\nAplique duplo de feltro na parte frontal\n\nPatch bordado na manga",
+      price: "289.90",
+      categoryId: 1,
+      featured: true,
+      isNew: true,
+      isBestseller: false,
+      imageUrl: "https://redcanoebrands.com/wp-content/uploads/2021/09/Boeing-Applique-Full-Zip_front-2.jpg"
+    });
+    
+    // Adicionar produto: Camiseta Boeing Masculina
+    this.createProduct({
+      name: "Camiseta Boeing - Masculino",
+      slug: "camiseta-boeing-masculina",
+      description: "O Boeing 747, conhecido como \"Jumbo Jet\", mudou o mundo ao popularizar as viagens aéreas e permitir voos diretos entre cidades distantes ao redor do globo. Em fevereiro de 1969, o primeiro 747 — número de série 001 — alçou voo sobre o estado de Washington. Celebre e compartilhe esse marco gigante da Aviação com a nossa camiseta Boeing RA001.\n\nFeita de 100% algodão\n\nCor: Cinza ardósia\n\nGola careca canelada\n\nLavada após a impressão para um visual vintage\n\nPré-encolhida.",
+      price: "99.90",
+      categoryId: 1,
+      featured: false,
+      isNew: true,
+      isBestseller: true,
+      imageUrl: "https://redcanoebrands.com/wp-content/uploads/2018/11/M-SST-BOEING-CA-SL-MD_front.jpg"
+    });
+    
+    // Adicionar produto: Camiseta Lona B17 Masculina
+    this.createProduct({
+      name: "Camiseta Lona B17 - Masculino",
+      slug: "camiseta-lona-b17-masculina",
+      description: "Celebre a herança de uma das aeronaves mais resistentes do século XX.\n\nFeita de 100% algodão\n\nCor: Cinza\n\nFita de costura contrastante\n\nGola careca canelada\n\nEtiqueta na barra\n\nLavada após a impressão para eliminar encolhimento e proporcionar um visual vintage\n\nPré-encolhida.",
+      price: "89.90",
+      categoryId: 1,
+      featured: false,
+      isNew: false,
+      isBestseller: true,
+      imageUrl: "https://redcanoebrands.com/wp-content/uploads/2022/05/M-LST-B17-GY_front.jpg"
+    });
+    
+    // Adicionar produto: Camiseta Feminina B17
+    this.createProduct({
+      name: "Camiseta B17 - Feminino",
+      slug: "camiseta-feminina-b17",
+      description: "Celebre a herança de uma das aeronaves mais resistentes do século XX.\n\nFeita de 100% algodão jersey\n\nCor: Cinza\n\nFita de costura contrastante\n\nGola careca canelada\n\nEtiqueta na barra\n\nLavada após a impressão\n\nPré-encolhida\n\nFabricada na América do Norte.",
+      price: "89.90",
+      categoryId: 2,
+      featured: true,
+      isNew: true,
+      isBestseller: false,
+      imageUrl: "https://redcanoebrands.com/wp-content/uploads/2016/02/L-SST-B17CA-GY-MD_front-1.jpg"
+    });
+    
+    // Adicionar produto: Camiseta Feminina Boeing
+    this.createProduct({
+      name: "Camiseta Boeing - Feminino",
+      slug: "camiseta-feminina-boeing",
+      description: "O Boeing 747, conhecido como \"Jumbo Jet\", mudou o mundo ao popularizar as viagens aéreas e permitir voos diretos entre cidades distantes ao redor do globo. Em fevereiro de 1969, o primeiro 747 — número de série 001 — decolou sobre o estado de Washington. Celebre e compartilhe esse marco gigante da Aviação com a nossa camiseta feminina Boeing RA001.\n\nUm novo item essencial para fãs de aviação. Feita de 100% algodão jersey, com modelagem ajustada e mangas curtas clássicas. Perfeita para o verão e ideal para sobreposição no outono. Lavada após a impressão para um toque vintage ainda mais marcante.\n\nFeita de 100% algodão\n\nCor: Cinza ardósia\n\nFita de costura contrastante\n\nGola careca canelada\n\nEtiqueta na barra\n\nLavada após a impressão\n\nPré-encolhida.",
+      price: "99.90",
+      categoryId: 2,
+      featured: false,
+      isNew: true,
+      isBestseller: true,
+      imageUrl: "https://redcanoebrands.com/wp-content/uploads/2020/07/L-SST-BOEING-SL-SM_front.jpg"
+    });
+    
+    // Adicionar produto: Boné Boeing Alta Performance
+    this.createProduct({
+      name: "Boné Boeing Alta Performance",
+      slug: "bone-boeing-alta-performance",
+      description: "Nosso novo boné da Boeing apresenta o icônico logo \"Boeing\" bordado em 3D na parte frontal — o mesmo logotipo visto nas aeronaves fabricadas atualmente. Possui o escudo Red Canoe e a bandeira dos EUA em tecido na parte de trás.\n\nFeito de 100% sarja de algodão escovado\n\nCor: Azul-marinho\n\nAlça traseira ajustável com fecho de velcro (tamanho único ajustável)\n\nFuros de ventilação bordados\n\nLimpeza localizada.",
+      price: "119.90",
+      categoryId: 3,
+      featured: true,
+      isNew: true,
+      isBestseller: true,
+      imageUrl: "https://redcanoebrands.com/wp-content/uploads/2018/10/Boeing_cap_NY.jpg"
     });
     
     // Add blog posts
