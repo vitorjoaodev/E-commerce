@@ -14,11 +14,11 @@
   --card-foreground: 20 14.3% 4.1%;
   --border: 20 5.9% 90%;
   --input: 20 5.9% 90%;
-  --primary: 36 55% 75%; /* Beige color */
+  --primary: 34 30% 71%; /* Softer beige color - #D6BD94 */
   --primary-foreground: 0 0% 0%;
   --secondary: 60 4.8% 95.9%;
   --secondary-foreground: 24 9.8% 10%;
-  --accent: 36 65% 85%; /* Brighter beige for hover states */
+  --accent: 34 25% 65%; /* Slightly darker beige for hover states */
   --accent-foreground: 24 9.8% 10%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 60 9.1% 97.8%;

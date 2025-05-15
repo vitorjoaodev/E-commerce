@@ -7,17 +7,14 @@ export default function HeroSection() {
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center" 
         style={{ 
-          backgroundImage: 'url(https://lh3.googleusercontent.com/proxy/RhwZAZJ6H_rNA6YuuINXFFHAErWbLbmFRV6DK9h5PqYUrxBw9i-hhxgLP1sJMzExNtHls0x6EWKeUHnvmmP3K8lt4ydmhy-v4Xms2rzNlqsNPApa1SkwNX2ZJSOb75AdWw_Yt0NuEdN0X3HSwpSTP1WvaCOcg-ZN8aADs3RbgEyee6avd8byxlz6hK3H)',
+          backgroundImage: 'url(https://images.squarespace-cdn.com/content/v1/607892d0460d6f7768d704ef/1627388148002-SRUB8FE3HF3H1ZBU06KK/The-Canadians14.jpg)',
           filter: 'brightness(0.3) contrast(1.2)'
         }}
       />
       
-      {/* Diagonal lines overlay for adventure/map feel */}
-      <div className="absolute inset-0 z-10 opacity-10">
-        <div className="w-full h-full" style={{ 
-          backgroundImage: `repeating-linear-gradient(45deg, #FFD700, #FFD700 2px, transparent 2px, transparent 20px),
-                            repeating-linear-gradient(135deg, #FFD700, #FFD700 2px, transparent 2px, transparent 20px)` 
-        }}></div>
+      {/* Overlay with slight vignette effect instead of lines */}
+      <div className="absolute inset-0 z-10 opacity-30">
+        <div className="w-full h-full bg-gradient-to-b from-black/50 to-transparent"></div>
       </div>
       
       {/* Content */}
@@ -25,7 +22,7 @@ export default function HeroSection() {
         <div className="max-w-4xl">
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4">
             <div className="text-white">DESCUBRA O ESPÍRITO DA</div>
-            <div className="text-[#FFD700] mt-2">AVENTURA AÉREA</div>
+            <div className="text-[#D6BD94] mt-2">AVENTURA AÉREA</div>
           </h1>
           
           <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl">
@@ -36,7 +33,7 @@ export default function HeroSection() {
           <div className="flex flex-wrap gap-4 mb-12">
             <Link to="/categoria/aviador" className="inline-block">
               <button 
-                className="px-8 py-3 bg-[#FFD700] text-black font-bold text-lg rounded-md hover:bg-[#FFC000] transition-all duration-300 shadow-[0_0_15px_rgba(255,215,0,0.4)]"
+                className="px-8 py-3 bg-[#D6BD94] text-black font-bold text-lg rounded-md hover:bg-[#C4AA80] transition-all duration-300 shadow-[0_0_15px_rgba(214,189,148,0.4)]"
               >
                 COLEÇÃO MASCULINA
               </button>
@@ -44,7 +41,7 @@ export default function HeroSection() {
             
             <Link to="/categoria/aviadora" className="inline-block">
               <button 
-                className="px-8 py-3 border-2 border-[#FFD700] text-[#FFD700] font-bold text-lg rounded-md hover:bg-[#FFD700]/10 transition-all duration-300"
+                className="px-8 py-3 border-2 border-[#D6BD94] text-[#D6BD94] font-bold text-lg rounded-md hover:bg-[#D6BD94]/10 transition-all duration-300"
               >
                 COLEÇÃO FEMININA
               </button>
@@ -52,23 +49,23 @@ export default function HeroSection() {
           </div>
           
           {/* Adventure badges */}
-          <div className="flex flex-wrap gap-8 items-center text-[#FFD700]">
+          <div className="flex flex-wrap gap-8 items-center text-[#D6BD94]">
             <div className="flex items-center">
-              <div className="w-12 h-12 rounded-full border-2 border-[#FFD700] flex items-center justify-center mr-3">
+              <div className="w-12 h-12 rounded-full border-2 border-[#D6BD94] flex items-center justify-center mr-3">
                 <span className="text-2xl">✦</span>
               </div>
               <span className="uppercase text-sm font-bold">Peças Exclusivas</span>
             </div>
             
             <div className="flex items-center">
-              <div className="w-12 h-12 rounded-full border-2 border-[#FFD700] flex items-center justify-center mr-3">
+              <div className="w-12 h-12 rounded-full border-2 border-[#D6BD94] flex items-center justify-center mr-3">
                 <span className="text-2xl">✦</span>
               </div>
               <span className="uppercase text-sm font-bold">Alta Qualidade</span>
             </div>
             
             <div className="flex items-center">
-              <div className="w-12 h-12 rounded-full border-2 border-[#FFD700] flex items-center justify-center mr-3">
+              <div className="w-12 h-12 rounded-full border-2 border-[#D6BD94] flex items-center justify-center mr-3">
                 <span className="text-2xl">✦</span>
               </div>
               <span className="uppercase text-sm font-bold">Estilo Atemporal</span>
@@ -79,11 +76,11 @@ export default function HeroSection() {
       
       {/* Decorative compass element */}
       <div className="absolute right-10 bottom-10 hidden lg:block z-20 opacity-70">
-        <div className="w-40 h-40 border-2 border-[#FFD700] rounded-full relative">
-          <div className="absolute inset-0 border-2 border-[#FFD700] rounded-full animate-spin-slow" style={{ animationDuration: '20s' }}></div>
-          <div className="w-full h-1 bg-[#FFD700] absolute top-1/2 left-0 transform -translate-y-1/2"></div>
-          <div className="w-1 h-full bg-[#FFD700] absolute top-0 left-1/2 transform -translate-x-1/2"></div>
-          <div className="w-4 h-4 bg-[#FFD700] rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+        <div className="w-40 h-40 border-2 border-[#D6BD94] rounded-full relative">
+          <div className="absolute inset-0 border-2 border-[#D6BD94] rounded-full animate-spin-slow" style={{ animationDuration: '20s' }}></div>
+          <div className="w-full h-1 bg-[#D6BD94] absolute top-1/2 left-0 transform -translate-y-1/2"></div>
+          <div className="w-1 h-full bg-[#D6BD94] absolute top-0 left-1/2 transform -translate-x-1/2"></div>
+          <div className="w-4 h-4 bg-[#D6BD94] rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
         </div>
       </div>
     </section>
