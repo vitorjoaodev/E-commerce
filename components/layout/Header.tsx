@@ -4,8 +4,9 @@ import { useLanguage } from '@/context/LanguageContext';
 import { useCurrency } from '@/context/CurrencyContext';
 import { useCart } from '@/context/CartContext';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { ShoppingBag, Menu, X, Search } from 'lucide-react';
+import { ShoppingBag, Menu, X, Search, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Logo } from '@/components/ui/logo';
 
 const LanguageSwitcher = () => {
   const { language, setLanguage } = useLanguage();
@@ -89,8 +90,8 @@ export default function Header() {
           )}
           
           {/* Logo */}
-          <Link href="/" className="text-2xl font-bold text-adventure-yellow tracking-widest">
-            PILOTO INTELIGENTE
+          <Link href="/" className="flex items-center hover:opacity-90 transition-opacity">
+            <Logo size={isMobile ? "sm" : "md"} />
           </Link>
           
           {/* Desktop Navigation */}
