@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import { useExitIntent } from '../../hooks/useExitIntent';
+import ShoppingCart from './ShoppingCart';
 import ExitPopup from './ExitPopup';
 
 interface LayoutProps {
@@ -9,11 +9,33 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps) {
-  const { showExitIntent, resetExitIntent } = useExitIntent({
-    sensitivity: 20,
-    timeout: 1000,
-    showOncePerSession: true,
-  });
+  const [showExitIntent, setShowExitIntent] = useState(false);
+  
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (e.clientY <= 20 && e.relatedTarget === null) {
+        // Set a timeout to prevent false triggers
+        timeoutId = setTimeout(() => {
+          setShowExitIntent(true);
+        }, 1000);
+      }
+    };
+    
+    // Add the event listener
+    document.addEventListener('mouseleave', handleMouseLeave);
+    
+    // Clean up
+    return () => {
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, []);
+  
+  const resetExitIntent = () => {
+    setShowExitIntent(false);
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-[#0a0a0c]">

@@ -1,151 +1,152 @@
+import { X, ShoppingBag } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { useCart } from '@/context/CartContext';
-import { useLanguage } from '@/context/LanguageContext';
-import { useCurrency } from '@/context/CurrencyContext';
 import { Link } from 'wouter';
-import { formatCurrency } from '@/lib/currency';
-import { Button } from '@/components/ui/button';
-import { X, Trash } from 'lucide-react';
 
+// Componente simples para o carrinho de compras
 export default function ShoppingCart() {
-  const { t } = useLanguage();
-  const { currency } = useCurrency();
-  const { 
-    cartItems, 
-    removeFromCart, 
-    updateCartItemQuantity, 
-    isCartOpen, 
-    toggleCartOpen,
-    calculateCartTotal
-  } = useCart();
-
-  // Calculate shipping cost (free if total > 250)
-  const cartTotal = calculateCartTotal();
-  const shippingCost = cartTotal > 250 ? 0 : 20;
-  const orderTotal = cartTotal + shippingCost;
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [cartItems, setCartItems] = useState<any[]>([]);
+  
+  // Efeito para detectar a tecla ESC para fechar o carrinho
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+    
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+    }
+    
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen]);
+  
+  // Função para calcular o total do carrinho
+  const calculateTotal = () => {
+    return cartItems.reduce((total, item) => total + parseFloat(item.price) * item.quantity, 0);
+  };
+  
+  // Função para formatar o preço em BRL
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(price);
+  };
+  
   return (
-    <div 
-      className={`fixed inset-y-0 right-0 max-w-md w-full bg-dark-gray border-l border-vintage-beige/30 z-40 transform transition-transform duration-300 ease-in-out ${
-        isCartOpen ? 'translate-x-0' : 'translate-x-full'
-      }`}
-    >
-      <div className="h-full flex flex-col">
-        <div className="p-6 border-b border-vintage-beige/20 flex justify-between items-center">
-          <h3 className="adventure-title text-2xl text-vintage-beige">{t('cart.title')}</h3>
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            className="text-vintage-beige hover:text-adventure-yellow"
-            onClick={toggleCartOpen}
-          >
-            <X size={24} />
-          </Button>
-        </div>
-        
-        <div className="flex-grow overflow-y-auto py-6 px-6 space-y-6">
-          {cartItems.length === 0 ? (
-            <div className="text-center text-light-beige/70 py-8">
-              <p>Seu carrinho está vazio</p>
-            </div>
-          ) : (
-            cartItems.map((item) => (
-              <div key={item.id} className="flex border-b border-vintage-beige/10 pb-6">
-                <Link href={`/produto/${item.slug}`}>
-                  <img 
-                    src={item.imageUrl} 
-                    alt={item.name} 
-                    className="w-20 h-20 object-cover rounded"
-                  />
-                </Link>
-                <div className="ml-4 flex-grow">
-                  <div className="flex justify-between">
-                    <Link href={`/produto/${item.slug}`} className="text-vintage-beige adventure-title">
-                      {item.name}
-                    </Link>
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      className="text-light-beige/50 hover:text-adventure-yellow"
-                      onClick={() => removeFromCart(item.id)}
-                    >
-                      <Trash size={16} />
-                    </Button>
-                  </div>
-                  {item.variant && (
-                    <p className="text-light-beige/70 text-sm">{item.variant}</p>
-                  )}
-                  <div className="flex justify-between items-center mt-2">
-                    <div className="flex items-center space-x-2">
-                      <Button 
-                        variant="outline" 
-                        size="icon" 
-                        className="w-6 h-6 p-0 flex items-center justify-center border border-vintage-beige/50 text-vintage-beige hover:bg-vintage-beige hover:text-dark-gray"
-                        onClick={() => updateCartItemQuantity(item.id, Math.max(1, item.quantity - 1))}
-                      >
-                        -
-                      </Button>
-                      <span className="text-light-beige">{item.quantity}</span>
-                      <Button 
-                        variant="outline"
-                        size="icon" 
-                        className="w-6 h-6 p-0 flex items-center justify-center border border-vintage-beige/50 text-vintage-beige hover:bg-vintage-beige hover:text-dark-gray"
-                        onClick={() => updateCartItemQuantity(item.id, item.quantity + 1)}
-                      >
-                        +
-                      </Button>
-                    </div>
-                    <span className="text-adventure-yellow font-bold">
-                      {formatCurrency(Number(item.price) * item.quantity, currency)}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-        
+    <>
+      {/* Botão do carrinho */}
+      <button 
+        onClick={() => setIsOpen(true)}
+        className="fixed z-20 bottom-8 right-8 bg-[#D6BD94] text-black p-4 rounded-full shadow-lg hover:bg-[#C4AA80] transition-colors"
+        aria-label="Abrir carrinho"
+      >
+        <ShoppingBag size={24} />
         {cartItems.length > 0 && (
-          <div className="border-t border-vintage-beige/20 p-6 space-y-4">
-            <div className="flex justify-between items-center">
-              <span className="text-light-beige">{t('cart.subtotal')}</span>
-              <span className="text-adventure-yellow font-bold">
-                {formatCurrency(cartTotal, currency)}
-              </span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-light-beige">{t('cart.shipping')}</span>
-              <span className="text-light-beige">
-                {shippingCost === 0 
-                  ? 'Grátis' 
-                  : formatCurrency(shippingCost, currency)
-                }
-              </span>
-            </div>
-            <div className="flex justify-between items-center pt-2 border-t border-vintage-beige/10">
-              <span className="text-light-beige font-bold">{t('cart.total')}</span>
-              <span className="text-adventure-yellow font-bold text-xl">
-                {formatCurrency(orderTotal, currency)}
-              </span>
-            </div>
-            
-            <Link href="/checkout">
-              <Button 
-                className="adventure-title w-full py-3 bg-adventure-yellow text-dark-gray hover:bg-aviation-blue hover:text-light-beige transition duration-300 rounded-lg"
-              >
-                {t('cart.checkout')}
-              </Button>
-            </Link>
-            <Button
-              variant="outline"
-              className="adventure-title w-full py-3 border border-vintage-beige text-vintage-beige hover:bg-vintage-beige hover:text-dark-gray transition duration-300 rounded-lg"
-              onClick={toggleCartOpen}
-            >
-              {t('cart.continueShopping')}
-            </Button>
-          </div>
+          <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+            {cartItems.length}
+          </span>
         )}
-      </div>
-    </div>
+      </button>
+      
+      {/* Overlay do carrinho */}
+      {isOpen && (
+        <div className="fixed inset-0 z-50">
+          {/* Background overlay */}
+          <div 
+            className="absolute inset-0 bg-black/60"
+            onClick={() => setIsOpen(false)}
+          />
+          
+          {/* Conteúdo do carrinho */}
+          <div className="absolute top-0 right-0 h-full w-full md:w-96 bg-[#121212] shadow-xl transform transition-transform ease-in-out duration-300">
+            <div className="flex flex-col h-full">
+              {/* Cabeçalho */}
+              <div className="flex items-center justify-between px-6 py-4 border-b border-[#333]">
+                <h2 className="text-xl font-bold text-white">Seu Carrinho</h2>
+                <button 
+                  onClick={() => setIsOpen(false)}
+                  className="text-white/70 hover:text-white"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+              
+              {/* Lista de itens */}
+              <div className="flex-grow overflow-y-auto py-4 px-6">
+                {cartItems.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center h-full text-center">
+                    <ShoppingBag size={64} className="text-[#333] mb-4" />
+                    <p className="text-white/70 mb-2">Seu carrinho está vazio</p>
+                    <p className="text-white/50 text-sm">Adicione alguns itens para continuar</p>
+                  </div>
+                ) : (
+                  <ul className="space-y-4">
+                    {cartItems.map((item) => (
+                      <li key={item.id} className="flex border-b border-[#333] pb-4">
+                        <div className="w-20 h-20 bg-[#333] rounded overflow-hidden mr-4">
+                          <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />
+                        </div>
+                        <div className="flex-grow">
+                          <h3 className="text-white font-medium">{item.name}</h3>
+                          {item.variant && <p className="text-white/60 text-sm">{item.variant}</p>}
+                          <div className="flex items-center mt-2">
+                            <button className="text-white/60 hover:text-[#D6BD94] border border-[#333] px-2">-</button>
+                            <span className="mx-2 text-white">{item.quantity}</span>
+                            <button className="text-white/60 hover:text-[#D6BD94] border border-[#333] px-2">+</button>
+                          </div>
+                        </div>
+                        <div className="flex flex-col items-end">
+                          <p className="text-[#D6BD94] font-medium">{formatPrice(parseFloat(item.price))}</p>
+                          <button className="text-white/60 hover:text-red-500 text-sm mt-4">
+                            Remover
+                          </button>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+              
+              {/* Rodapé com resumo */}
+              <div className="border-t border-[#333] px-6 py-4">
+                {cartItems.length > 0 && (
+                  <div className="space-y-4">
+                    <div className="flex justify-between">
+                      <span className="text-white/70">Subtotal</span>
+                      <span className="text-white">{formatPrice(calculateTotal())}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-white/70">Frete</span>
+                      <span className="text-white">Calculado no checkout</span>
+                    </div>
+                    <div className="flex justify-between font-bold">
+                      <span className="text-white">Total</span>
+                      <span className="text-[#D6BD94]">{formatPrice(calculateTotal())}</span>
+                    </div>
+                    <Link to="/checkout">
+                      <button className="w-full bg-[#D6BD94] hover:bg-[#C4AA80] text-black font-bold py-3 rounded transition-colors">
+                        Finalizar Compra
+                      </button>
+                    </Link>
+                  </div>
+                )}
+                
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="mt-4 w-full border border-[#D6BD94] text-[#D6BD94] hover:bg-[#D6BD94]/10 py-2 rounded transition-colors"
+                >
+                  Continuar Comprando
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
