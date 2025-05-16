@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Base colors for light theme */
+  --background: 0 0% 100%;
+  --foreground: 20 14.3% 4.1%;
+  --muted: 60 4.8% 95.9%;
+  --muted-foreground: 25 5.3% 44.7%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 20 14.3% 4.1%;
+  --card: 0 0% 100%;
+  --card-foreground: 20 14.3% 4.1%;
+  --border: 20 5.9% 90%;
+  --input: 20 5.9% 90%;
+  --primary: 34 30% 71%; /* Softer beige color - #D6BD94 */
+  --primary-foreground: 0 0% 0%;
+  --secondary: 60 4.8% 95.9%;
+  --secondary-foreground: 24 9.8% 10%;
+  --accent: 34 25% 65%; /* Slightly darker beige for hover states */
+  --accent-foreground: 24 9.8% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  --ring: 20 14.3% 4.1%;
+  --radius: 0.5rem;
+
+  /* Aviator theme specific colors */
+  --adventure-beige: 36 55% 75%;
+  --dark-gray: 240 10% 10%;
+  --light-gray: 0 0% 85%;
+}
+
+/* Force dark theme */
+html {
+  color-scheme: dark;
+}
+
+/* Dark theme colors */
+:root {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --primary: 45 93% 47%; /* Gold/Yellow color */
+  --primary-foreground: 0 0% 0%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --accent: 45 93% 53%; /* Brighter gold for accents */
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 240 4.9% 83.9%;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* Compass animation */
+  .compass-loader {
+    @apply border-2 border-primary rounded-full relative;
+    position: relative;
+    overflow: visible;
+  }
+
+  .compass-loader::before {
+    content: '';
+    @apply absolute inset-0 border-2 border-primary rounded-full;
+    filter: drop-shadow(0 0 2px hsl(var(--primary)));
+    animation: compass-spin 10s linear infinite;
+  }
+
+  .compass-loader::after {
+    content: '';
+    @apply absolute top-1/2 left-1/2 w-3/4 h-0.5 bg-accent;
+    transform-origin: 0% 50%;
+    filter: drop-shadow(0 0 5px hsl(var(--accent)));
+    animation: compassNeedle 6s ease-in-out infinite;
+  }
+
+  /* Adventure divider */
+  .adventure-divider {
+    background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent);
+    height: 2px;
+  }
+
+  /* Menu dividers */
+  .menu-divider {
+    position: relative;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--muted)), transparent);
+  }
+
+  /* Custom buttons */
+  .btn-adventure {
+    @apply bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground transition-colors;
+    box-shadow: 0 0 8px hsl(var(--primary) / 0.5);
+  }
+
+  /* For product cards */
+  .product-card {
+    @apply relative overflow-hidden bg-muted rounded-md shadow-lg;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 10px hsl(var(--primary) / 0.3);
+  }
+
+  /* For hover effects */
+  .hover-glow:hover {
+    text-shadow: 0 0 5px hsl(var(--primary) / 0.7);
+  }
+}
+
+@keyframes compass-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes compassNeedle {
+  0%, 100% {
+    transform: translateX(-50%) rotate(-30deg);
+  }
+  50% {
+    transform: translateX(-50%) rotate(30deg);
+  }
+}

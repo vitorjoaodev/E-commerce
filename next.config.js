@@ -5,7 +5,6 @@ const nextConfig = {
     domains: ['images.unsplash.com', 'placehold.co'],
   },
   // Configuração otimizada para deploy na Vercel
-  swcMinify: true,
 };
 
 module.exports = nextConfig;
