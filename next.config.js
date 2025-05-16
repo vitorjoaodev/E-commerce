@@ -4,14 +4,8 @@ const nextConfig = {
   images: {
     domains: ['images.unsplash.com', 'placehold.co'],
   },
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'http://localhost:5000/api/:path*',
-      },
-    ];
-  },
+  // Configuração otimizada para deploy na Vercel
+  swcMinify: true,
 };
 
 module.exports = nextConfig;

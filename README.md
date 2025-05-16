@@ -1,82 +1,47 @@
-# Piloto Inteligente - E-commerce de Aviação Vintage
+# Piloto Inteligente
 
-![Piloto Inteligente](https://www.pgparks.com/wp-content/uploads/2023/02/CollegeParkAviationMuseum19-21_1200.jpg)
-
-## Sobre o Projeto
-
-Piloto Inteligente é uma plataforma de e-commerce bilíngue (Português/Inglês) voltada para entusiastas da aviação, oferecendo roupas e acessórios que combinam a nostalgia da aviação clássica com estilos contemporâneos.
-
-Fundado pelo piloto Carlos Drummond, o Piloto Inteligente traz a paixão pela aviação para o mundo da moda, com produtos exclusivos que celebram a era de ouro da aviação.
-
-## Características Principais
-
-- **Design Responsivo**: Interface adaptável para desktop, tablet e dispositivos móveis
-- **Bilíngue**: Suporte completo para Português e Inglês
-- **Multi-moeda**: Preços em BRL (Real Brasileiro) e USD (Dólar Americano)
-- **Categorias de Produtos**:
-  - **Aviador**: Coleção masculina
-  - **Aviadora**: Coleção feminina
-  - **Acessórios**: Itens complementares
-
-## Funcionalidades Implementadas
-
-- Navegação intuitiva com filtros de produtos (Novo, Promoção, Mais Vendidos)
-- Sistema de pesquisa de produtos
-- Página de conta de usuário com perfil e gerenciamento de pedidos
-- Blog integrado com artigos sobre aviação e história
-- Design temático inspirado em aventuras (estilo Jurassic Park/Indiana Jones)
-- Paleta de cores escuras com acentos em bege (#D6BD94)
-- SEO otimizado para melhor visibilidade nos mecanismos de busca
+Loja online de roupas e acessórios com estética de aviação vintage. Produtos exclusivos para aviadores e aviadoras.
 
 ## Tecnologias Utilizadas
 
-- **Frontend**:
-  - Next.js
-  - TypeScript
-  - TailwindCSS
-  - Wouter (para roteamento)
-  - Shadcn/UI (componentes)
-  - TanStack Query (gerenciamento de estado e requisições)
+- Next.js
+- Tailwind CSS
+- React
+- TypeScript
 
-- **Backend**:
-  - Express
-  - Drizzle ORM
-  - Sistema de armazenamento em memória
+## Como Executar Localmente
 
-- **Internacionalização e Localização**:
-  - Sistema customizado de traduções
-  - Suporte para mudança de moeda
+1. Clone o repositório
+2. Instale as dependências
+   ```bash
+   npm install
+   ```
+3. Execute o projeto em modo de desenvolvimento
+   ```bash
+   npm run dev
+   ```
+4. Acesse a aplicação em http://localhost:3000
 
-- **UX/UI**:
-  - Design temático de aventura aérea
-  - Componentes acessíveis e responsivos
+## Deploy na Vercel
 
-## Página Inicial
+Este projeto está configurado para ser facilmente implantado na Vercel.
 
-A página inicial apresenta:
+1. Conecte seu repositório ao Vercel
+2. Selecione o projeto
+3. A Vercel detectará automaticamente que é um projeto Next.js e configurará o ambiente corretamente
+4. Clique em "Deploy" e aguarde a conclusão
 
-- Seção hero com imagem do College Park Aviation Museum
-- Categorias de produtos em destaque
-- Produtos em destaque
-- História da empresa
-- Feed de blog recente
-- Newsletter para inscrição
-- Feed de Instagram
+A Vercel cuidará de toda a configuração do ambiente, build e deployment.
 
-## Visão de Negócio
+## Estrutura do Projeto
 
-O Piloto Inteligente se posiciona como uma marca premium que combina moda e história da aviação, voltada para um público apaixonado por aviação e por estilos vintage. A plataforma oferece não apenas produtos, mas também conteúdo através do blog, criando uma experiência completa para o consumidor.
+- `/pages`: Páginas do Next.js
+- `/components`: Componentes React reutilizáveis
+- `/styles`: Estilos globais e configurações do Tailwind
+- `/public`: Arquivos estáticos
 
-## Como Executar o Projeto
+## Links
 
-```bash
-# Instalar dependências
-npm install
-
-# Iniciar o servidor de desenvolvimento
-npm run dev
-```
-
-O projeto estará disponível em `http://localhost:5000`
-
-Desenvolvido por: João Vitor Belasque. Github: vitorjoaodev (https://github.com/vitorjoaodev/E-commerce). LinkedIn: https://www.linkedin.com/in/joaovitorfullstack/
+- [Docs do Next.js](https://nextjs.org/docs)
+- [Docs do Tailwind CSS](https://tailwindcss.com/docs)
+- [Vercel](https://vercel.com)
