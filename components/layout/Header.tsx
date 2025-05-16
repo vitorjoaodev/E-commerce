@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'wouter';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Logo } from '../ui/logo';
 import { Search, User, ShoppingBag, Menu, X, Globe } from 'lucide-react';
-import { useLanguage } from '@/context/LanguageContext';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -10,8 +10,24 @@ export default function Header() {
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
-  const [, setLocation] = useLocation();
-  const { language, setLanguage, t } = useLanguage();
+  const router = useRouter();
+  
+  // Função de tradução simplificada
+  const language = 'pt-BR';
+  const setLanguage = (lang: string) => console.log('Mudando idioma para:', lang);
+  const t = (key: string) => {
+    const translations: Record<string, string> = {
+      'banner.promo': 'Frete grátis para compras acima de R$350',
+      'banner.discount': '15% OFF na primeira compra com o cupom PILOTO15',
+      'nav.aviador': 'Aviador',
+      'nav.aviadora': 'Aviadora',
+      'nav.accessories': 'Acessórios',
+      'nav.blog': 'Blog',
+      'nav.history': 'Nossa História',
+      'search.placeholder': 'Pesquisar produtos...'
+    };
+    return translations[key] || key;
+  };
   
   useEffect(() => {
     const handleScroll = () => {
@@ -29,7 +45,7 @@ export default function Header() {
     if (e) e.preventDefault();
     
     if (searchQuery.trim()) {
-      setLocation(`/pesquisa?q=${encodeURIComponent(searchQuery.trim())}`);
+      router.push(`/pesquisa?q=${encodeURIComponent(searchQuery.trim())}`);
       setIsSearchActive(false); // Hide search after submitting
     }
   };

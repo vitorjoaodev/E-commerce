@@ -1,16 +1,16 @@
-import { Html, Head, Main, NextScript } from 'next/document';
+import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {
   return (
     <Html lang="pt-BR">
       <Head>
-        {/* Não inclua meta viewport aqui - será adicionado automaticamente pelo Next.js */}
         <link rel="icon" href="/favicon.ico" />
+        {/* Movendo a meta tag viewport para _app.js conforme recomendação do Next.js */}
       </Head>
       <body>
         <Main />
         <NextScript />
       </body>
     </Html>
-  );
+  )
 }
