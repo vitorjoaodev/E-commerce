@@ -3,67 +3,56 @@
 @tailwind utilities;
 
 :root {
-  --primary: #D6BD94;
   --background: #0a0a0c;
-  --secondary-background: #111115;
+  --background-secondary: #111114;
+  --primary: #D6BD94;
   --text: #ffffff;
-  --text-secondary: #9ca3af;
+  --accent: #C39F5F;
+  --border: #2F2F33;
 }
 
-/* Base Styles */
-body {
-  background-color: var(--background);
-  color: var(--text);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-text font-sans;
+  }
+
+  /* Typography */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-white;
+  }
 }
 
-/* Custom Scrollbar */
+@layer components {
+  .btn-primary {
+    @apply bg-primary hover:bg-primary/90 text-background font-medium py-2 px-6 rounded-md transition-colors;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent border border-primary text-primary hover:bg-primary/10 font-medium py-2 px-6 rounded-md transition-colors;
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+}
+
+/* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background);
+  @apply bg-background;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 4px;
+  @apply bg-primary/30 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #b8a07c;
-}
-
-/* Animation Classes */
-.animate-fade-in {
-  animation: fadeIn 0.5s ease-in;
-}
-
-.hover-scale {
-  transition: transform 0.3s ease;
-}
-
-.hover-scale:hover {
-  transform: scale(1.05);
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Typography Enhancements */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-  letter-spacing: -0.025em;
-}
-
-/* Button Styles */
-.btn-primary {
-  @apply px-6 py-2 bg-[#D6BD94] text-black font-medium rounded-lg hover:bg-[#c4aa82] transition-colors;
-}
-
-.btn-secondary {
-  @apply px-6 py-2 border border-[#D6BD94] text-[#D6BD94] font-medium rounded-lg hover:bg-[#D6BD94]/10 transition-colors;
+  @apply bg-primary/50;
 }
