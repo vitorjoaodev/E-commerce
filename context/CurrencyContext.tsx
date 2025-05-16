@@ -1,6 +1,5 @@
-import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-
-export type Currency = 'BRL' | 'USD';
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { Currency, currencies } from "@/lib/currency";
 
 interface CurrencyContextType {
   currency: Currency;
@@ -10,25 +9,23 @@ interface CurrencyContextType {
 const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined);
 
 export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
-  // Initialize with BRL (Brazilian Real) as default currency
   const [currency, setCurrencyState] = useState<Currency>('BRL');
 
-  // Load currency preference from localStorage on mount
+  // Load currency preference from localStorage on initial render
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const savedCurrency = localStorage.getItem('currency') as Currency;
-      if (savedCurrency && (savedCurrency === 'BRL' || savedCurrency === 'USD')) {
-        setCurrencyState(savedCurrency);
-      }
+    const savedCurrency = localStorage.getItem('currency') as Currency | null;
+    if (savedCurrency && Object.keys(currencies).includes(savedCurrency)) {
+      setCurrencyState(savedCurrency);
+    } else {
+      // Default to BRL
+      setCurrencyState('BRL');
     }
   }, []);
 
   // Save currency preference to localStorage whenever it changes
   const setCurrency = (newCurrency: Currency) => {
     setCurrencyState(newCurrency);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('currency', newCurrency);
-    }
+    localStorage.setItem('currency', newCurrency);
   };
 
   return (

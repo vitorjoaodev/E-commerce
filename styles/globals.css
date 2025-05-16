@@ -3,74 +3,61 @@
 @tailwind utilities;
 
 :root {
-  --background: 0 0% 0%;
-  --foreground: 0 0% 96%;
-  
-  --card: 0 0% 10%;
-  --card-foreground: 0 0% 96%;
-  
-  --popover: 0 0% 10%;
-  --popover-foreground: 0 0% 96%;
-  
-  --primary: 43 74% 49%;
+  /* Base colors for light theme */
+  --background: 0 0% 100%;
+  --foreground: 20 14.3% 4.1%;
+  --muted: 60 4.8% 95.9%;
+  --muted-foreground: 25 5.3% 44.7%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 20 14.3% 4.1%;
+  --card: 0 0% 100%;
+  --card-foreground: 20 14.3% 4.1%;
+  --border: 20 5.9% 90%;
+  --input: 20 5.9% 90%;
+  --primary: 34 30% 71%; /* Softer beige color - #D6BD94 */
   --primary-foreground: 0 0% 0%;
-  
-  --secondary: 222 53% 25%;
-  --secondary-foreground: 0 0% 96%;
-  
-  --muted: 0 0% 15%;
-  --muted-foreground: 0 0% 70%;
-  
-  --accent: 16 83% 47%;
-  --accent-foreground: 0 0% 96%;
-  
-  --destructive: 0 85% 60%;
-  --destructive-foreground: 0 0% 96%;
-  
-  --border: 0 0% 20%;
-  --input: 0 0% 20%;
-  --ring: 43 74% 49%;
-
+  --secondary: 60 4.8% 95.9%;
+  --secondary-foreground: 24 9.8% 10%;
+  --accent: 34 25% 65%; /* Slightly darker beige for hover states */
+  --accent-foreground: 24 9.8% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  --ring: 20 14.3% 4.1%;
   --radius: 0.5rem;
-  
-  --adventure-yellow: 43 74% 49%;
-  --adventure-yellow-foreground: 0 0% 0%;
-  
-  --aviation-blue: 222 53% 25%;
-  --aviation-blue-foreground: 0 0% 96%;
-  
-  --dark-gray: 0 0% 10%;
-  --dark-gray-foreground: 0 0% 96%;
+
+  /* Aviator theme specific colors */
+  --adventure-beige: 36 55% 75%;
+  --dark-gray: 240 10% 10%;
+  --light-gray: 0 0% 85%;
 }
 
-.dark {
-  --background: 0 0% 0%;
-  --foreground: 0 0% 96%;
-  
-  --card: 0 0% 10%;
-  --card-foreground: 0 0% 96%;
-  
-  --popover: 0 0% 10%;
-  --popover-foreground: 0 0% 96%;
-  
-  --primary: 43 74% 49%;
+/* Force dark theme */
+html {
+  color-scheme: dark;
+}
+
+/* Dark theme colors */
+:root {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --primary: 45 93% 47%; /* Gold/Yellow color */
   --primary-foreground: 0 0% 0%;
-  
-  --secondary: 222 53% 25%;
-  --secondary-foreground: 0 0% 96%;
-  
-  --muted: 0 0% 15%;
-  --muted-foreground: 0 0% 70%;
-  
-  --accent: 16 83% 47%;
-  --accent-foreground: 0 0% 96%;
-  
-  --destructive: 0 85% 60%;
-  --destructive-foreground: 0 0% 96%;
-  
-  --border: 0 0% 20%;
-  --input: 0 0% 20%;
-  --ring: 43 74% 49%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --accent: 45 93% 53%; /* Brighter gold for accents */
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 240 4.9% 83.9%;
+  --radius: 0.5rem;
 }
 
 @layer base {
@@ -79,116 +66,12 @@
   }
 
   body {
-    @apply antialiased bg-background text-foreground overflow-x-hidden;
-  }
-
-  h1, h2, h3, h4 {
-    @apply tracking-wider uppercase font-bold;
-  }
-
-  h1 {
-    @apply text-4xl md:text-5xl;
-  }
-
-  h2 {
-    @apply text-3xl md:text-4xl;
-  }
-
-  h3 {
-    @apply text-2xl md:text-3xl;
-  }
-
-  h4 {
-    @apply text-xl md:text-2xl;
-  }
-
-  .text-adventure-yellow {
-    color: hsl(var(--adventure-yellow));
-  }
-
-  .bg-adventure-yellow {
-    background-color: hsl(var(--adventure-yellow));
-  }
-
-  .text-aviation-blue {
-    color: hsl(var(--aviation-blue));
-  }
-
-  .bg-aviation-blue {
-    background-color: hsl(var(--aviation-blue));
-  }
-
-  .text-dark-gray {
-    color: hsl(var(--dark-gray));
-  }
-
-  .bg-dark-gray {
-    background-color: hsl(var(--dark-gray));
-  }
-
-  .border-adventure-yellow {
-    border-color: hsl(var(--adventure-yellow));
-  }
-
-  .border-aviation-blue {
-    border-color: hsl(var(--aviation-blue));
-  }
-  
-  /* Custom animations */
-  @keyframes compass-spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-  
-  @keyframes compassNeedle {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    50% { transform: translate(-50%, -50%) rotate(180deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
-  }
-  
-  @keyframes dash {
-    to {
-      stroke-dashoffset: 0;
-    }
-  }
-  
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    @apply bg-background;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    @apply bg-[#8B4513] rounded;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary;
+    @apply font-sans antialiased bg-background text-foreground;
   }
 }
 
-/* Define adventure-themed utility classes */
 @layer components {
-  .adventure-divider {
-    background-image: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YW50aXF1ZSUyMHBhcGVyfGVufDB8fDB8fHww');
-    background-size: cover;
-    background-position: center;
-    height: 3px;
-  }
-  
-  .leather-texture {
-    background-image: url('https://images.unsplash.com/photo-1561814304-7f9ad6b13403?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGVhdGhlciUyMHRleHR1cmV8ZW58MHx8MHx8fDA%3D');
-    background-size: cover;
-  }
-  
+  /* Compass animation */
   .compass-loader {
     @apply border-2 border-primary rounded-full relative;
     position: relative;
@@ -209,60 +92,57 @@
     filter: drop-shadow(0 0 5px hsl(var(--accent)));
     animation: compassNeedle 6s ease-in-out infinite;
   }
-  
-  .flight-path {
-    stroke-dasharray: 500;
-    stroke-dashoffset: 500;
-    animation: dash 5s linear infinite;
+
+  /* Adventure divider */
+  .adventure-divider {
+    background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent);
+    height: 2px;
   }
-  
-  .adventure-btn {
-    @apply bg-[#8B4513] hover:bg-primary text-foreground hover:text-background py-3 px-8 rounded 
-    uppercase tracking-wider transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg;
+
+  /* Menu dividers */
+  .menu-divider {
+    position: relative;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--muted)), transparent);
   }
-  
-  .product-card::before {
-    content: '';
-    @apply absolute inset-0 opacity-0 transition-opacity duration-500 pointer-events-none;
-    background: radial-gradient(circle at center, transparent 60%, rgba(0,0,0,0.8) 100%);
+
+  /* Custom buttons */
+  .btn-adventure {
+    @apply bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground transition-colors;
+    box-shadow: 0 0 8px hsl(var(--primary) / 0.5);
   }
-  
-  .product-card:hover::before {
-    @apply opacity-100;
+
+  /* For product cards */
+  .product-card {
+    @apply relative overflow-hidden bg-muted rounded-md shadow-lg;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 10px hsl(var(--primary) / 0.3);
+  }
+
+  /* For hover effects */
+  .hover-glow:hover {
+    text-shadow: 0 0 5px hsl(var(--primary) / 0.7);
   }
 }
 
-/* Animation classes */
-.animate-in {
-  animation-duration: 0.3s;
-  animation-timing-function: ease-out;
-  animation-fill-mode: both;
-}
-
-.slide-in-from-right {
-  animation-name: slideInFromRight;
-}
-
-.zoom-in-90 {
-  animation-name: zoomIn90;
-}
-
-@keyframes slideInFromRight {
-  from {
-    transform: translateX(100%);
+@keyframes compass-spin {
+  0% {
+    transform: rotate(0deg);
   }
-  to {
-    transform: translateX(0);
+  100% {
+    transform: rotate(360deg);
   }
 }
 
-@keyframes zoomIn90 {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
+@keyframes compassNeedle {
+  0%, 100% {
+    transform: translateX(-50%) rotate(-30deg);
   }
-  to {
-    opacity: 1;
-    transform: scale(1);
+  50% {
+    transform: translateX(-50%) rotate(30deg);
   }
 }
