@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'wouter';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Logo } from '../ui/logo';
 import { Search, User, ShoppingBag, Menu, X, Globe } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
@@ -10,7 +11,7 @@ export default function Header() {
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
-  const [, setLocation] = useLocation();
+  const router = useRouter();
   const { language, setLanguage, t } = useLanguage();
   
   useEffect(() => {
@@ -29,7 +30,7 @@ export default function Header() {
     if (e) e.preventDefault();
     
     if (searchQuery.trim()) {
-      setLocation(`/pesquisa?q=${encodeURIComponent(searchQuery.trim())}`);
+      router.push(`/pesquisa?q=${encodeURIComponent(searchQuery.trim())}`);
       setIsSearchActive(false); // Hide search after submitting
     }
   };
@@ -66,27 +67,37 @@ export default function Header() {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link to="/">
-              <Logo />
+            <Link href="/">
+              <a><Logo /></a>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/categoria/aviador" className="text-white hover:text-[#D6BD94] transition-colors">
-              {t('nav.aviador')}
+            <Link href="/categoria/aviador">
+              <a className="text-white hover:text-[#D6BD94] transition-colors">
+                {t('nav.aviador')}
+              </a>
             </Link>
-            <Link to="/categoria/aviadora" className="text-white hover:text-[#D6BD94] transition-colors">
-              {t('nav.aviadora')}
+            <Link href="/categoria/aviadora">
+              <a className="text-white hover:text-[#D6BD94] transition-colors">
+                {t('nav.aviadora')}
+              </a>
             </Link>
-            <Link to="/categoria/acessorios" className="text-white hover:text-[#D6BD94] transition-colors">
-              {t('nav.accessories')}
+            <Link href="/categoria/acessorios">
+              <a className="text-white hover:text-[#D6BD94] transition-colors">
+                {t('nav.accessories')}
+              </a>
             </Link>
-            <Link to="/blog" className="text-white hover:text-[#D6BD94] transition-colors">
-              {t('nav.blog')}
+            <Link href="/blog">
+              <a className="text-white hover:text-[#D6BD94] transition-colors">
+                {t('nav.blog')}
+              </a>
             </Link>
-            <Link to="/nossa-historia" className="text-white hover:text-[#D6BD94] transition-colors">
-              {t('nav.history')}
+            <Link href="/nossa-historia">
+              <a className="text-white hover:text-[#D6BD94] transition-colors">
+                {t('nav.history')}
+              </a>
             </Link>
           </nav>
 
@@ -152,8 +163,10 @@ export default function Header() {
             </div>
             
             {/* User account */}
-            <Link to="/conta" className="hidden sm:block text-white hover:text-[#D6BD94] transition-colors">
-              <User size={20} />
+            <Link href="/conta">
+              <a className="hidden sm:block text-white hover:text-[#D6BD94] transition-colors">
+                <User size={20} />
+              </a>
             </Link>
             
             {/* Mobile menu button */}
@@ -172,23 +185,35 @@ export default function Header() {
         <div className="md:hidden absolute top-full left-0 w-full bg-[#0a0a0c] border-t border-[#222] py-4 shadow-xl">
           <div className="container mx-auto px-4">
             <nav className="flex flex-col space-y-4">
-              <Link to="/categoria/aviador" className="text-white hover:text-[#D6BD94] py-2 border-b border-[#222] transition-colors">
-                {t('nav.aviador')}
+              <Link href="/categoria/aviador">
+                <a className="text-white hover:text-[#D6BD94] py-2 border-b border-[#222] transition-colors">
+                  {t('nav.aviador')}
+                </a>
               </Link>
-              <Link to="/categoria/aviadora" className="text-white hover:text-[#D6BD94] py-2 border-b border-[#222] transition-colors">
-                {t('nav.aviadora')}
+              <Link href="/categoria/aviadora">
+                <a className="text-white hover:text-[#D6BD94] py-2 border-b border-[#222] transition-colors">
+                  {t('nav.aviadora')}
+                </a>
               </Link>
-              <Link to="/categoria/acessorios" className="text-white hover:text-[#D6BD94] py-2 border-b border-[#222] transition-colors">
-                {t('nav.accessories')}
+              <Link href="/categoria/acessorios">
+                <a className="text-white hover:text-[#D6BD94] py-2 border-b border-[#222] transition-colors">
+                  {t('nav.accessories')}
+                </a>
               </Link>
-              <Link to="/blog" className="text-white hover:text-[#D6BD94] py-2 border-b border-[#222] transition-colors">
-                {t('nav.blog')}
+              <Link href="/blog">
+                <a className="text-white hover:text-[#D6BD94] py-2 border-b border-[#222] transition-colors">
+                  {t('nav.blog')}
+                </a>
               </Link>
-              <Link to="/nossa-historia" className="text-white hover:text-[#D6BD94] py-2 transition-colors">
-                {t('nav.history')}
+              <Link href="/nossa-historia">
+                <a className="text-white hover:text-[#D6BD94] py-2 transition-colors">
+                  {t('nav.history')}
+                </a>
               </Link>
-              <Link to="/conta" className="text-white hover:text-[#D6BD94] py-2 border-t border-[#222] transition-colors">
-                {language === 'pt-BR' ? 'Minha Conta' : 'My Account'}
+              <Link href="/conta">
+                <a className="text-white hover:text-[#D6BD94] py-2 border-t border-[#222] transition-colors">
+                  {language === 'pt-BR' ? 'Minha Conta' : 'My Account'}
+                </a>
               </Link>
             </nav>
           </div>
