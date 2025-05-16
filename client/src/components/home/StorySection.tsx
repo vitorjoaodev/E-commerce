@@ -33,8 +33,8 @@ export default function StorySection() {
               
               <div className="relative z-10 p-4">
                 <img 
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Chegada_de_aviadores_da_For%C3%A7a_A%C3%A9rea_Brasileira_01.tif/lossy-page1-250px-Chegada_de_aviadores_da_For%C3%A7a_A%C3%A9rea_Brasileira_01.tif.jpg" 
-                  alt="História da Piloto Inteligente" 
+                  src="https://images.squarespace-cdn.com/content/v1/607892d0460d6f7768d704ef/1627388148002-SRUB8FE3HF3H1ZBU06KK/The-Canadians14.jpg" 
+                  alt="História do Piloto Inteligente" 
                   className="w-full h-[400px] object-cover rounded-md shadow-xl shadow-black/30"
                 />
                 
