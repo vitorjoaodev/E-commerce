@@ -10,8 +10,8 @@ module.exports = {
         background: "var(--background)",
         "background-secondary": "var(--background-secondary)",
         primary: "var(--primary)",
-        text: "var(--text)",
-        accent: "var(--accent)",
+        "text-primary": "var(--text-primary)",
+        "text-secondary": "var(--text-secondary)",
         border: "var(--border)",
       },
       fontFamily: {

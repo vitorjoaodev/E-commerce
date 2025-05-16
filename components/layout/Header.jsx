@@ -5,16 +5,19 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
-  // Efeito de scroll
+  // Efeito de scroll - only runs in browser
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    // Check if we're in a browser environment
+    if (typeof window !== 'undefined') {
+      const handleScroll = () => {
+        setIsScrolled(window.scrollY > 20);
+      };
+      
+      window.addEventListener('scroll', handleScroll);
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
   }, []);
   
   return (
@@ -68,20 +71,20 @@ export default function Header() {
         <div className="md:hidden absolute top-full left-0 w-full bg-[#0a0a0c] border-t border-[#222] py-4 shadow-xl">
           <div className="container mx-auto px-4">
             <nav className="flex flex-col space-y-4">
-              <Link href="/categoria/aviador">
-                <a className="text-white hover:text-[#D6BD94] py-2 border-b border-[#222] transition-colors">Aviador</a>
+              <Link href="/categoria/aviador" className="text-white hover:text-[#D6BD94] py-2 border-b border-[#222] transition-colors">
+                Aviador
               </Link>
-              <Link href="/categoria/aviadora">
-                <a className="text-white hover:text-[#D6BD94] py-2 border-b border-[#222] transition-colors">Aviadora</a>
+              <Link href="/categoria/aviadora" className="text-white hover:text-[#D6BD94] py-2 border-b border-[#222] transition-colors">
+                Aviadora
               </Link>
-              <Link href="/categoria/acessorios">
-                <a className="text-white hover:text-[#D6BD94] py-2 border-b border-[#222] transition-colors">Acessórios</a>
+              <Link href="/categoria/acessorios" className="text-white hover:text-[#D6BD94] py-2 border-b border-[#222] transition-colors">
+                Acessórios
               </Link>
-              <Link href="/blog">
-                <a className="text-white hover:text-[#D6BD94] py-2 border-b border-[#222] transition-colors">Blog</a>
+              <Link href="/blog" className="text-white hover:text-[#D6BD94] py-2 border-b border-[#222] transition-colors">
+                Blog
               </Link>
-              <Link href="/nossa-historia">
-                <a className="text-white hover:text-[#D6BD94] py-2 transition-colors">Nossa História</a>
+              <Link href="/nossa-historia" className="text-white hover:text-[#D6BD94] py-2 transition-colors">
+                Nossa História
               </Link>
             </nav>
           </div>

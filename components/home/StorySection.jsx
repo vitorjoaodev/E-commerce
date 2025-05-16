@@ -1,7 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
+import { useLanguage } from '../../context/LanguageContext';
 
 const StorySection = () => {
+  const { t } = useLanguage();
+  
   return (
     <section className="py-16 bg-background-secondary">
       <div className="container mx-auto px-4">
@@ -13,12 +16,9 @@ const StorySection = () => {
           
           {/* Seção de texto */}
           <div>
-            <h2 className="text-3xl font-bold text-primary mb-6">Nossa História</h2>
+            <h2 className="text-3xl font-bold text-primary mb-6">{t('story.title')}</h2>
             <p className="text-white/80 mb-4">
-              A Piloto Inteligente nasceu da paixão de Carlos Drummond pela aviação. 
-              Após anos como piloto comercial, cruzando os céus do mundo, Carlos identificou 
-              a falta de roupas e acessórios que combinassem estilo, conforto e funcionalidade 
-              para entusiastas da aviação.
+              {t('story.content')}
             </p>
             <p className="text-white/80 mb-8">
               Fundada em 2020, nossa marca se dedica a criar peças que honram a tradição da 
@@ -36,7 +36,7 @@ const StorySection = () => {
             </blockquote>
             
             <Link href="/nossa-historia" className="btn-secondary">
-              Conheça Nossa Jornada
+              {t('story.readMore')}
             </Link>
           </div>
         </div>

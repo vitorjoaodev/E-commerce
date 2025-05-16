@@ -2,57 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #0a0a0c;
-  --background-secondary: #111114;
-  --primary: #D6BD94;
-  --text: #ffffff;
-  --accent: #C39F5F;
-  --border: #2F2F33;
-}
-
 @layer base {
-  html {
-    @apply scroll-smooth;
+  :root {
+    --background: #0a0a0c;
+    --background-secondary: #111114;
+    --primary: #D6BD94;
+    --border: #222;
+    --text-primary: white;
+    --text-secondary: #ffffffbb;
   }
 
   body {
-    @apply bg-background text-text font-sans;
-  }
-
-  /* Typography */
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-bold text-white;
+    @apply bg-background text-white;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-primary hover:bg-primary text-background font-medium py-2 px-6 rounded-md transition-colors;
+    @apply bg-primary text-background py-3 px-6 rounded-md font-medium hover:bg-opacity-90 transition-colors inline-block;
   }
 
   .btn-secondary {
-    @apply bg-transparent border border-primary text-primary hover:bg-background-secondary font-medium py-2 px-6 rounded-md transition-colors;
+    @apply bg-transparent text-primary border border-primary py-3 px-6 rounded-md font-medium hover:bg-primary hover:bg-opacity-10 transition-colors inline-block;
   }
 
   .hover-scale {
-    @apply transition-transform duration-300 hover:scale-105;
+    @apply transition-transform duration-300 hover:scale-[1.03];
   }
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  @apply bg-background;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-primary/30 rounded-full;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-primary/50;
 }

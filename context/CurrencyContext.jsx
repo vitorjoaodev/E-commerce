@@ -1,19 +1,6 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Tipos de moedas suportadas
-export type Currency = 'BRL' | 'USD' | 'EUR';
-
-// Configuração de cada moeda
-export interface CurrencyConfig {
-  symbol: string;
-  code: Currency;
-  decimals: number;
-  thousandSeparator: string;
-  decimalSeparator: string;
-  exchangeRate: number; // Relativo ao BRL (1 BRL = exchangeRate unidades da moeda)
-}
-
-// Definição das moedas suportadas
+// Definindo as moedas suportadas
 export const currencies = {
   BRL: {
     symbol: 'R$',
@@ -21,7 +8,7 @@ export const currencies = {
     decimals: 2,
     thousandSeparator: '.',
     decimalSeparator: ',',
-    exchangeRate: 1
+    exchangeRate: 1 // Base currency
   },
   USD: {
     symbol: '$',
@@ -29,7 +16,7 @@ export const currencies = {
     decimals: 2,
     thousandSeparator: ',',
     decimalSeparator: '.',
-    exchangeRate: 0.2 // Exemplo: 1 BRL = 0.2 USD
+    exchangeRate: 0.2 // 1 BRL = 0.2 USD
   },
   EUR: {
     symbol: '€',
@@ -37,79 +24,76 @@ export const currencies = {
     decimals: 2,
     thousandSeparator: '.',
     decimalSeparator: ',',
-    exchangeRate: 0.18 // Exemplo: 1 BRL = 0.18 EUR
+    exchangeRate: 0.18 // 1 BRL = 0.18 EUR
   }
 };
 
-// Funções auxiliares para formatação e conversão de moedas
-export function formatCurrency(amount: number | string, currency: Currency): string {
-  const config = currencies[currency];
-  const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
+// Funções de utilidade
+export function formatCurrency(amount, currency = 'BRL') {
+  const currencyConfig = currencies[currency];
   
-  const parts = numAmount.toFixed(config.decimals).split('.');
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, config.thousandSeparator);
+  if (!currencyConfig) {
+    return `${amount}`;
+  }
   
-  return `${config.symbol} ${parts.join(config.decimalSeparator)}`;
+  const numericAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
+  
+  if (isNaN(numericAmount)) {
+    return `${currencyConfig.symbol} -`;
+  }
+  
+  const formattedAmount = numericAmount.toFixed(currencyConfig.decimals);
+  const [whole, decimal] = formattedAmount.split('.');
+  
+  const formattedWhole = whole.replace(/\B(?=(\d{3})+(?!\d))/g, currencyConfig.thousandSeparator);
+  
+  return `${currencyConfig.symbol} ${formattedWhole}${currencyConfig.decimalSeparator}${decimal}`;
 }
 
-export function convertCurrency(amount: number | string, fromCurrency: Currency, toCurrency: Currency): number {
-  const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
-  const fromRate = currencies[fromCurrency].exchangeRate;
-  const toRate = currencies[toCurrency].exchangeRate;
+export function convertCurrency(amount, fromCurrency = 'BRL', toCurrency = 'BRL') {
+  const numericAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
   
-  // Converter para BRL (moeda base) e então para a moeda alvo
-  return (numAmount / fromRate) * toRate;
+  if (isNaN(numericAmount)) {
+    return 0;
+  }
+  
+  // Converter para BRL primeiro (moeda base)
+  const amountInBRL = fromCurrency === 'BRL' 
+    ? numericAmount 
+    : numericAmount / currencies[fromCurrency].exchangeRate;
+  
+  // Converter de BRL para a moeda alvo
+  return toCurrency === 'BRL' 
+    ? amountInBRL 
+    : amountInBRL * currencies[toCurrency].exchangeRate;
 }
 
-// Tipo do contexto
-interface CurrencyContextType {
-  currency: Currency;
-  setCurrency: (currency: Currency) => void;
-  formatValue: (amount: number | string) => string;
-  convertValue: (amount: number | string, toCurrency: Currency) => number;
-}
+// Criando o contexto de moeda
+const CurrencyContext = createContext();
 
-// Criação do contexto
-const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined);
-
-// Provedor do contexto
 export const CurrencyProvider = ({ children }) => {
-  // Estado para armazenar a moeda atual
-  const [currency, setCurrencyState] = useState<Currency>('BRL');
-
-  // Efeito para carregar a moeda do localStorage ao iniciar
+  const [currency, setCurrency] = useState('BRL');
+  const [mounted, setMounted] = useState(false);
+  
+  // Only execute client-side code after component is mounted
   useEffect(() => {
-    const savedCurrency = localStorage.getItem('currency');
-    if (savedCurrency && Object.keys(currencies).includes(savedCurrency)) {
-      setCurrencyState(savedCurrency as Currency);
-    }
+    setMounted(true);
   }, []);
 
-  // Função para definir a moeda
-  const setCurrency = (newCurrency: Currency) => {
-    setCurrencyState(newCurrency);
-    localStorage.setItem('currency', newCurrency);
+  const value = {
+    currency,
+    setCurrency: mounted ? setCurrency : () => {},
+    formatPrice: (amount) => formatCurrency(amount, currency),
+    convert: (amount, fromCurrency) => convertCurrency(amount, fromCurrency, currency)
   };
 
-  // Função para formatar valor na moeda atual
-  const formatValue = (amount: number | string): string => {
-    return formatCurrency(amount, currency);
-  };
-
-  // Função para converter valor para outra moeda
-  const convertValue = (amount: number | string, toCurrency: Currency): number => {
-    return convertCurrency(amount, currency, toCurrency);
-  };
-
-  // Provedor com os valores do contexto
   return (
-    <CurrencyContext.Provider value={{ currency, setCurrency, formatValue, convertValue }}>
+    <CurrencyContext.Provider value={value}>
       {children}
     </CurrencyContext.Provider>
   );
 };
 
-// Hook para usar o contexto
 export const useCurrency = () => {
   const context = useContext(CurrencyContext);
   if (context === undefined) {
